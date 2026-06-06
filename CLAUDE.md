@@ -11,13 +11,16 @@ The marketing and product website for Familiar (a Mac-native ambient agent). Sep
 - **Build:** `npm run build`
 - **Type-check:** `npm run typecheck` (or `tsc --noEmit`)
 
-## Critical reads — do these before any session
-1. `docs/reference/POSITIONING.md` — before writing any copy or headline
-2. `docs/reference/BRAND.md` — before touching any color, type, or window chrome
-3. `docs/reference/MACOS9_REFERENCE.md` — before building any window chrome, scrollbars, or OS decoration
-4. `docs/reference/COPY.md` — before placing any on-page text
-5. `docs/reference/FAMILIAR_README.md` — the single source of truth for what Familiar actually does
-6. `docs/reference/FAMILIAR_MODES.md` — before describing Guide/Agent/Chat on any page
+## Key reference docs
+Session prompts specify which docs to read. The non-negotiable ones:
+- `docs/reference/FAMILIAR_README.md` — what Familiar actually does (product source of truth)
+- `docs/reference/POSITIONING.md` — voice, forbidden phrases, value props (output of Session 1)
+- `docs/reference/BRAND.md` — palette, type, Mac OS 9 rules (output of Session 2)
+- `docs/reference/MACOS9_REFERENCE.md` — specific Platinum UI details (output of Session 2)
+- `docs/reference/COPY.md` — all on-page copy indexed by §section-id (output of Session 3)
+- `docs/reference/FAMILIAR_MODES.md` — Guide/Agent/Chat reference for copy sessions
+
+Standing orders are in `docs/reference/CLAUDE.md` — read that at the start of every session.
 
 ## Architecture decisions (see DECISIONS.md for rationale)
 - **Pure Option C:** positioning → copy → implementation. No pixels before `COPY.md` is written.
@@ -36,27 +39,19 @@ components/
   desktop/             — window manager, desktop, taskbar, Trash
   windows/             — individual app windows (demo, about, docs, etc.)
   ui/                  — shared primitives (buttons, scrollbars, etc.)
-docs/reference/        — the docs used in sessions (not shipped to browser)
+docs/reference/        — session reference docs (not shipped to browser)
 public/                — static assets
 tailwind.config.ts
+skills/                — session skill files (accumulate over time)
 ```
 
-## Standing orders
-- **Read BRAND.md and MACOS9_REFERENCE.md before touching any window chrome.** Mac OS 9 details are easy to get wrong; hallucinated Platinum UI is a tell.
-- **Read POSITIONING.md before writing any copy.** Forbidden phrases are in there.
-- **Read COPY.md §section-id before placing copy in a component.** Components reference `COPY.md` by section ID, not by hard-coded strings.
-- **The desktop metaphor is not decoration.** It's the product. Every design decision must serve or at least not undermine the OS metaphor.
-- **The website mode toggle is a first-class feature.** It must work at every breakpoint. Don't let it regress.
-- **Commits:** follow the session branch convention (`feat/session-NN-*`). One session = one branch = one PR.
-- **Sessions:** paste the session prompt at the top of a new Claude Code session. Each is fully self-contained.
-
 ## Session status
-- [ ] Session 0 — Repo init + reference docs
+- [x] Session 0 — Repo init + reference docs
 - [ ] Session 1 — Positioning → `POSITIONING.md`
 - [ ] Session 2 — Brand foundation → `BRAND.md` + `MACOS9_REFERENCE.md` + Tailwind tokens
 - [ ] Session 3 — Homepage copy → `COPY.md` (first chunk)
 - [ ] Session 4+ — Implementation
 
 ## Notes
-- The product repo (`familiar/`) is a separate codebase. Changes to the product do not automatically update the website. Sync `FAMILIAR_README.md` periodically by copying from the product's `readme.md`.
-- This repo follows the same PROMPTS.md session format as the product repo. See `docs/reference/PROMPTS.md` for conventions.
+- The product repo (`familiar/`) is a separate codebase. Sync `FAMILIAR_README.md` periodically by copying from the product's `readme.md`.
+- Session-prompt conventions are in `docs/reference/PROMPTS.md`. Session backlog is in `docs/reference/PROMPTS_BACKLOG.md`.

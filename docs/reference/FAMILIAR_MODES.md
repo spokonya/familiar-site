@@ -81,6 +81,10 @@ The command bar shows a short notice in these cases.
 
 ## Copy notes for the website
 
+> **These are direction-setting examples, not approved copy.** The "Voice for copy" phrasings under each mode are starting points for the copy session, not finished lines. Final copy goes through Session 3 and is committed to `COPY.md`. Do not use these phrasings verbatim in any component.
+
+
+
 - **Always call the ghost cursor "the ghost cursor"** (or just "Familiar") — not "the AI cursor," "the agent cursor," or similar.
 - **Guide/Agent/Chat are proper nouns** — capitalize them consistently.
 - **"Does it for you"** is Agent's core proposition. Don't dilute it with hedges in hero copy.

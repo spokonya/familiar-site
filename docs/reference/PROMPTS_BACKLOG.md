@@ -2,7 +2,13 @@
 
 > Sessions in order. Each session is fully self-contained (see PROMPTS.md for conventions).
 > Do not start a session until the previous one's success conditions are met.
-> Sessions 1–3 produce no code. Session 4 is when pixels happen.
+> Sessions 1–3 produce no UI code. Session 4 is when pixels happen.
+
+---
+
+## SESSION 0 — Repo Init + Reference Docs
+**Status: COMPLETE** — commit `97f065e` on `main`.
+This session seeded all `docs/reference/` stubs, wrote `CLAUDE.md`, `DECISIONS.md`, `README.md`, `PROMPTS.md`, `PROMPTS_BACKLOG.md`, and this file. No Next.js project yet. No Tailwind. No UI.
 
 ---
 
@@ -20,13 +26,14 @@ Read docs/reference/INSPIRATION_POSTHOG.md for framing context.
 Read docs/reference/posthog-founders-design.md for product-site philosophy.
 Create a new git branch named copy/session-01-positioning.
 
-CONTEXT (session 1 of N, positioning phase — no code this session):
+CONTEXT (session 1 of N, positioning phase — no UI code this session):
 - Familiar is a Mac-native ambient agent. It reads your screen and either guides you
   (ghost cursor shows where to click, you click) or acts for you (ghost cursor shows,
   real cursor follows). The ghost cursor IS the product's visual identity.
 - The website is a Mac OS 9 desktop. Visitors land on a Platinum-chrome desktop with
   draggable windows. This is not decoration — the OS metaphor is the product's personality.
-- This session produces POSITIONING.md only. No UI, no code, no Tailwind tokens.
+- This session produces POSITIONING.md only. No Tailwind, no Next.js scaffolding,
+  no UI code of any kind — only markdown documents.
 - Constraint: no rendered pixels before COPY.md is written (Option C, DECISIONS.md).
 
 PART 1 — One-sentence pitch
@@ -57,12 +64,14 @@ copy session.
 
 SUCCESS CONDITIONS:
 1. POSITIONING.md exists and has all five sections populated.
-2. The one-sentence pitch passes the non-technical-person test (show it to someone unfamiliar
-   with the product and they can explain it back).
+2. The one-sentence pitch is written in plain English: no jargon, no acronyms, uses
+   concrete nouns (cursor, screen, click, Mac) rather than abstractions (workflow,
+   automation, intelligence, seamless).
 3. The forbidden phrases list has at least 8 entries with brief rationale for each.
 4. The value props are in priority order and match what's visible in FAMILIAR_README.md
-   (nothing promised that doesn't exist).
-5. The voice section has at least one example of each register.
+   (nothing promised that doesn't exist in the product today).
+5. The voice section has at least one "sounds like / doesn't sound like" example for
+   each register (headline, body, UI label).
 ```
 
 ---
@@ -106,20 +115,33 @@ Sections: §palette (all color tokens, mapped to Mac OS 9 roles), §typography
 §window-chrome (specific rules: "when to use pinstripes," "title bar height,"
 "window control button spec"), §icon-style, §do-not (visual anti-patterns).
 
-PART 3 — Scaffold and implement Tailwind tokens
-If the Next.js project doesn't exist: `npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --no-import-alias`.
-Implement all brand tokens from BRAND.md as CSS variables in globals.css and as
-Tailwind theme extensions in tailwind.config.ts.
-Build a single route `app/tokens/page.tsx` — a swatch page showing every color,
-every type style, and a sample Platinum window chrome — for visual verification.
+PART 3 — Scaffold the Next.js project
+If `package.json` doesn't exist at the repo root: run
+`npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --no-import-alias`.
+Confirm: `npm run dev` starts without errors, `npm run typecheck` passes clean.
+Note: Tailwind v4 uses a CSS-first config (no tailwind.config.ts by default in v4 — confirm
+the installed version and follow the correct config path for that version before proceeding
+to PART 4).
+
+PART 4 — Tailwind tokens + swatch page
+Implement all brand tokens from BRAND.md as CSS custom properties in `app/globals.css`
+and wire them into Tailwind's theme (the approach differs between Tailwind v3 and v4 —
+use the installed version's documented method, not a guess).
+Build `app/tokens/page.tsx` — a swatch page showing every color token, every type style
+at each scale level, and a sample Platinum window chrome (title bar + content area +
+scrollbar) for visual verification. This page is never linked from the homepage; it
+exists for session verification only.
 
 SUCCESS CONDITIONS:
-1. MACOS9_REFERENCE.md has the "easy tell" list and covers all the listed elements.
-2. BRAND.md has all five sections populated.
-3. `npm run dev` serves the swatch page at /tokens without errors.
-4. The swatch page shows all color tokens, all type styles, and a sample window chrome
-   that matches MACOS9_REFERENCE.md §window-controls and §title-bar.
-5. `npm run typecheck` passes clean.
+1. MACOS9_REFERENCE.md has the §easy-tells list and covers all eight listed sections.
+2. BRAND.md has all five sections populated (§palette, §typography, §window-chrome,
+   §icon-style, §do-not).
+3. `npm run dev` starts cleanly and serves the swatch page at /tokens.
+4. The swatch page displays all color tokens labeled by CSS variable name, all type
+   styles labeled by scale level, and a window chrome sample where the title bar
+   height, pinstripe, and control buttons match MACOS9_REFERENCE.md §title-bar and
+   §window-controls.
+5. `npm run typecheck` passes clean with zero errors.
 ```
 
 ---

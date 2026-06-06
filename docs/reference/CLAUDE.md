@@ -1,22 +1,25 @@
-# familiar-site — docs/reference/CLAUDE.md
+# familiar-site — Standing Orders
 
-This is the session-level standing-orders doc for Claude Code working on the familiar-site repo. It lives here (not the root) so it loads explicitly when referenced in a session prompt. The root `CLAUDE.md` has the broader project context.
+Read this at the start of every session. It contains rules only — no stack info, no file structure, no status. Those live in the root `CLAUDE.md`.
 
-## Before every session
-1. Read `docs/reference/POSITIONING.md` — what Familiar is, who it's for, what voice to use, what phrases to avoid.
-2. Read `docs/reference/BRAND.md` — colors, type, Mac OS 9 treatment rules.
-3. Read `docs/reference/MACOS9_REFERENCE.md` — the specific Mac OS 9 visual language details. Do not wing this.
-4. Read `docs/reference/COPY.md` — page-by-page copy indexed by section ID.
-5. Read `docs/reference/FAMILIAR_README.md` — the source of truth for what Familiar actually does.
+## Copy rules
+- **Never write on-page copy that isn't in `COPY.md`.** Copy decisions belong in the copy session (Session 3), not scattered across implementation sessions. If this session proposes new copy, mark it explicitly as a proposal and note it needs a copy-session sign-off before it's committed as final.
+- **Reference copy by §section-id.** Components get their text from `COPY.md §section-id`, not hard-coded strings. This keeps copy revisions isolated from implementation.
+- **Read `POSITIONING.md §forbidden-phrases` before writing any copy.** If a phrase appears there, don't use it anywhere — not in body copy, not in UI labels, not in comments.
 
-## Rules
-- **Never write copy that isn't in COPY.md** (or explicitly proposed in this session). Copy decisions belong in the copy session, not scattered across implementation sessions.
-- **Never deviate from BRAND.md palette or MACOS9_REFERENCE.md window chrome** without raising it as a decision.
-- **Reference copy by section ID** — components get their text from `COPY.md §section-id`, not hard-coded strings. This makes copy revisions clean.
-- **The PostHog design reference (`posthog-design-reference.md`) is STRUCTURAL REFERENCE ONLY.** Do not copy PostHog's palette (cream, yellow), typography stack, or mascot approach. Use it for: component naming conventions, content/presentation separation thinking, OS-metaphor reasoning. See `INSPIRATION_POSTHOG.md` for the explicit scope.
-- **MACOS9_REFERENCE.md governs all OS chrome.** If that doc doesn't answer a question about Platinum UI, raise it rather than guessing.
-- **One session = one branch = one PR.** Branch names: `feat/session-NN-description`. Never commit to `main` directly.
-- **Run `npm run dev` and test the feature in a browser before marking any visual/interactive task done.**
+## Mac OS 9 chrome rules
+- **`MACOS9_REFERENCE.md` governs all OS window chrome.** Title bar height, pinstripe colors, window control button shapes and positions, scrollbar arrow placement — these are all specified there. Do not guess.
+- **The "easy tell" list in `MACOS9_REFERENCE.md §easy-tells` is a pre-commit checklist.** Before finishing any window chrome work, verify each item on that list.
+- **If `MACOS9_REFERENCE.md` doesn't answer a question about Platinum UI, raise it as a decision rather than improvising.** Add the answer to the doc once confirmed.
 
-## Session end
-At the end of every session, run the end-of-session update (in `PROMPTS.md`) — update CLAUDE.md session status and commit.
+## PostHog reference scope
+- **`posthog-design-reference.md` is STRUCTURAL REFERENCE ONLY.** Read `INSPIRATION_POSTHOG.md` for the full scope. Short version: use it for component vocabulary and design-system structure. Do not touch the PostHog palette (cream, yellow), typography, or mascot.
+
+## Branching
+- **One session = one branch = one PR.** Branch names: `feat/session-NN-description` (implementation), `copy/session-NN-description` (copy), `brand/session-NN-description` (brand/tokens). Never commit to `main` directly.
+- **After the session's success conditions are met:** run the END-OF-SESSION UPDATE from `PROMPTS.md`, merge the branch, delete it.
+
+## Before marking any implementation task done
+- `npm run dev` is running and the feature is visible in a browser.
+- `npm run typecheck` passes clean.
+- `npm run build` passes clean (run at session end, not after every change).
