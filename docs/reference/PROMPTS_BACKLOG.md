@@ -212,6 +212,8 @@ SUCCESS CONDITIONS:
 
 ```
 Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/ARCHITECTURE.md in full — component contracts, window data model,
+  state architecture, Zustand store shape, drag implementation, scrollbar notes.
 Read docs/reference/BRAND.md in full.
 Read docs/reference/MACOS9_REFERENCE.md in full — do not wing any Mac OS 9 chrome details.
 Read docs/reference/COPY.md for window titles (use §window-title-* IDs).
@@ -219,44 +221,58 @@ Create a new git branch named feat/session-04-desktop-shell.
 
 CONTEXT (session 4 of N, implementation phase begins):
 - The Next.js 15 app exists with Tailwind tokens (Session 2).
-- The desktop is the homepage (app/page.tsx).
+- The desktop is the homepage (app/page.tsx). All architecture decisions are in
+  ARCHITECTURE.md — follow them. Do not invent a different state model.
 - Window chrome must match MACOS9_REFERENCE.md exactly — especially title bar height,
   pinstripe pattern, window control button positions and sizes, scrollbar arrow positions.
-- The "website mode" toggle is a first-class feature, not an afterthought.
-  It must work at every viewport size.
+- The website mode toggle reads from URL param + localStorage per ARCHITECTURE.md §state.
+- At <768px viewport, website mode is forced on and the toggle is hidden.
 
-PART 1 — Window manager
-Build components/desktop/WindowManager.tsx: manages z-index, focus, drag state for
-multiple overlapping windows. Each window has an id, position, size, minimized state,
-and z-index. Dragging a title bar moves the window. Clicking any part of a window
-brings it to front.
+PART 1 — Zustand window store
+Install zustand. Build `lib/useWindowManager.ts`:
+The `WindowState` type and `WindowManagerStore` interface match ARCHITECTURE.md §window-data-model
+and §window-manager-contract exactly. Actions: focusWindow, moveWindow, resizeWindow,
+minimizeWindow, restoreWindow, openWindow, closeWindow. Z-index strategy: monotonically
+incrementing counter (ARCHITECTURE.md §z-index-strategy). Persist to sessionStorage
+(not localStorage — ARCHITECTURE.md §state-architecture).
+Build `lib/windows.ts`: default layout constants (positions + sizes) for two breakpoints
+(≥1024px, 768–1023px). Define the window IDs: "about", "demo", "features", "docs".
 
 PART 2 — Window chrome component
-Build components/desktop/Window.tsx: renders a single Platinum window with:
-- Title bar (pinstripes, title text, close/zoom/collapse controls per MACOS9_REFERENCE.md)
-- Content area with proper border and inset
-- Resize handle (bottom-right, per MACOS9_REFERENCE.md)
-- Scrollbar if content overflows (arrows at BOTH ends per MACOS9_REFERENCE.md)
-No window content yet — just the chrome around an empty content area.
+Build `components/desktop/Window.tsx` matching the WindowProps contract in ARCHITECTURE.md.
+Render: title bar (pinstripes via CSS repeating-linear-gradient, title text, square
+close/zoom/collapse buttons per MACOS9_REFERENCE.md), content area, resize handle.
+Drag: pointer events on the title bar (onPointerDown → document onPointerMove/onPointerUp).
+Use `transform: translate()` for position — never `top`/`left` during drag.
+Boundary constraints: clamp so title bar stays in viewport (ARCHITECTURE.md §boundary-constraints).
+Scrollbar: build `components/ui/ScrollArea.tsx` with arrows at BOTH ends of the track
+(ARCHITECTURE.md §scrollbars — do NOT use CSS scrollbar-* APIs, they cannot produce this layout).
 
-PART 3 — Desktop and Trash
-Build components/desktop/Desktop.tsx: the desktop background (Platinum/dark texture),
-a menu bar at the top (per MACOS9_REFERENCE.md), and a Trash icon bottom-right.
-Wire in the WindowManager.
+PART 3 — Desktop, MenuBar, Trash
+Build `components/desktop/Desktop.tsx`: desktop background, MenuBar at top, Trash bottom-right,
+and the four windows positioned at their defaults from `lib/windows.ts`.
+Build `components/desktop/MenuBar.tsx`: Apple menu, app name "Familiar", clock.
+Build `components/desktop/Trash.tsx`: Trash icon, bottom-right, empty state.
 
 PART 4 — Website mode toggle
-Build the toggle component and wire it to switch between the desktop layout and a
-conventional marketing layout shell. The conventional layout can be empty for now —
-just verify the toggle works and the state persists through re-renders.
+Build `components/ui/ModeToggle.tsx` and `lib/useMode.ts`.
+State reads: URL param > localStorage > default (desktop). Writes both on toggle.
+At <768px: force website mode, hide the toggle, show a one-line banner.
+Wire `app/page.tsx` to render `<Desktop>` or `<WebsiteLayout>` based on mode.
+`<WebsiteLayout>` is an empty shell for now — just a div with background color.
 
 SUCCESS CONDITIONS:
-1. `npm run dev` renders the desktop at localhost:3000.
-2. At least two windows can be dragged independently and brought to front by clicking.
-3. Window chrome (title bar, controls, scrollbar) matches MACOS9_REFERENCE.md §title-bar,
-   §window-controls, and §scrollbar (screenshot and compare).
-4. The Trash appears bottom-right on the desktop.
-5. The website mode toggle renders and switches between the two layout shells.
-6. `npm run typecheck` and `npm run build` both pass clean.
+1. `npm run dev` renders the Mac OS 9 desktop at localhost:3000 on a ≥1024px viewport.
+2. Four empty windows ("about", "demo", "features", "docs") appear at their default positions.
+3. Dragging a window's title bar moves it smoothly. Clicking any window brings it to front.
+   Two windows can be dragged to overlap; z-index stacking is correct.
+4. Window chrome passes the MACOS9_REFERENCE.md §easy-tells checklist — specifically:
+   scrollbar arrows appear at BOTH top AND bottom of the vertical track; window control
+   buttons are square, not round; title bar pinstripes render.
+5. Refreshing the page restores the last window positions (sessionStorage).
+6. The mode toggle switches to website mode (empty shell). At 375px viewport width,
+   website mode is forced and the toggle is hidden.
+7. `npm run typecheck` and `npm run build` both pass clean.
 ```
 
 ---
@@ -269,16 +285,40 @@ SUCCESS CONDITIONS:
 **Goal:** All homepage windows have their content. The site is readable end-to-end.
 
 ```
-[Full prompt TBD after Session 3 and 4 are complete — COPY.md section IDs
-and window inventory will be known then.]
+[Full prompt written after Sessions 3 and 4 complete. The outline below is fixed.]
+
+Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/ARCHITECTURE.md §copy-data-layer.
+Read docs/reference/COPY.md in full.
+Create a new git branch named feat/session-05-homepage-content.
+
+CONTEXT (session 5 of N):
+- The desktop shell exists (Session 4): four empty windows, window manager, mode toggle.
+- COPY.md has all section IDs and final copy (Session 3).
+- The copy data layer (ARCHITECTURE.md §copy): translate COPY.md into `lib/copy.ts` as
+  a typed `as const` object — never hard-code strings in components.
+
+PART 1 — Write lib/copy.ts
+Translate every §section-id in COPY.md to a key in `lib/copy.ts` as `as const`.
+Format: `export const copy = { "hero-headline": "...", ... } as const;`
+Export `CopyKey = keyof typeof copy` for use in components.
+Every key must match a §section-id in COPY.md exactly.
+
+PART 2 — Populate window content components
+Build each window's content component (AboutWindow, FeaturesWindow, DocsWindow) using
+copy["§section-id"] — no hard-coded strings. Mount them inside the Window chrome from Session 4.
+
+PART 3 — Website mode content
+Populate WebsiteLayout with the website-mode copy sections. Same lib/copy.ts source.
 
 SUCCESS CONDITIONS:
-1. Every window in the desktop layout has content matching COPY.md §[section-id].
-2. The website mode layout shows equivalent content.
-3. No hard-coded copy strings — all copy is referenced by section ID from COPY.md
-   (or a constants file that mirrors it).
-4. The site is readable on 1280px viewport.
-5. `npm run typecheck` and `npm run build` pass clean.
+1. `lib/copy.ts` exists, is typed `as const`, and has a key for every §section-id in COPY.md.
+2. `grep -r "\"[A-Z]" components/` returns no hard-coded copy strings in components
+   (all strings come from lib/copy.ts).
+3. Every window shows content matching its COPY.md sections.
+4. The website mode layout shows equivalent content.
+5. The site is readable on a 1280px viewport.
+6. `npm run typecheck` and `npm run build` pass clean.
 ```
 
 ---
@@ -291,14 +331,51 @@ SUCCESS CONDITIONS:
 **Goal:** The demo window shows a convincing fake Familiar run — ghost cursor flying around, speech bubbles, the whole effect. Fully scripted, no LLM.
 
 ```
-[Full prompt TBD — demo script is written in Session 3 or a separate copy session.]
+Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/ARCHITECTURE.md §demo-system-architecture in full — the DemoStep
+  type, DemoPlayer state machine, coordinate system, ghost cursor constraints.
+Read docs/reference/COPY.md for the demo script content (§demo-* sections).
+Create a new git branch named feat/session-06-demo-window.
+
+CONTEXT (session 6 of N):
+- The desktop with content windows exists (Session 5).
+- The demo system architecture is fully specified in ARCHITECTURE.md §demo-system-architecture.
+  Follow it exactly: DemoStep union type, requestAnimationFrame player, window-relative coords.
+- The demo script content (the specific sequence of steps) comes from COPY.md §demo-* sections.
+
+PART 1 — DemoScript.ts
+Build `components/demo/DemoScript.ts` with the DemoStep type from ARCHITECTURE.md.
+Write the DEMO_SCRIPT array from COPY.md §demo-* sections.
+
+PART 2 — GhostCursor and SpeechBubble
+Build `components/demo/GhostCursor.tsx`: a glowing blue (#378ADD) triangle cursor that
+renders at a given position (window-relative, converted to viewport coords by adding
+the DemoWindow's current position). Animates along a bezier arc (same physics as
+Familiar's real ghost cursor). Uses `transform: translate()` only — no top/left.
+Build `components/demo/SpeechBubble.tsx`: renders text char-by-char at the streaming
+rate in the DemoStep. Scale-bounce entrance. Positioned relative to the ghost cursor.
+
+PART 3 — DemoPlayer
+Build `components/demo/DemoPlayer.tsx` as the requestAnimationFrame state machine
+described in ARCHITECTURE.md. States: idle → playing → paused → complete.
+Autoplay starts when the window is visible and focused. Pauses when the window is
+minimized or off-screen. A Replay button is always visible.
+
+PART 4 — Wire into DemoWindow
+Mount DemoPlayer inside the DemoWindow from Session 4/5. The "screen" area of the demo
+window shows the current demo screenshot (swapped via screen-change steps). All ghost
+cursor coords are window-relative.
 
 SUCCESS CONDITIONS:
-1. The demo plays automatically when the window is open/visible.
-2. The ghost cursor flies along bezier arcs and shows speech bubbles.
-3. The demo is deterministic — same sequence every time.
-4. No LLM calls, no API keys, no streaming — purely client-side.
-5. The demo loops or has a replay button.
+1. Opening the demo window starts the autoplay sequence within 1s.
+2. The ghost cursor flies along curved bezier arcs (not straight lines, not teleports).
+3. Speech bubbles stream text char-by-char, not all at once.
+4. Moving the demo window to a different position and replaying shows the ghost cursor
+   pointing at the correct elements (window-relative coords confirmed).
+5. Minimizing the demo window pauses the sequence. Restoring it resumes.
+6. The Replay button replays from the start.
+7. No fetch() calls, no API keys, no streaming — `npm run build` confirms no server actions.
+8. `npm run typecheck` passes clean.
 ```
 
 ---

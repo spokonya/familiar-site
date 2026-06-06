@@ -83,3 +83,73 @@ The tech stack is Next.js 15 (App Router), React 19, Tailwind v4, TypeScript, de
 **Why:** This is the current recommended stack for a marketing site that needs SEO, fast first paint, and a small team. Tailwind v4 is the current version and its CSS-variable approach pairs well with a design-token strategy (which the Mac OS 9 Platinum palette needs). App Router is the default going forward. Vercel is the natural deployment target for Next.js with zero config. TypeScript is required — the site will have interactive window-management code that benefits from types.
 
 **Alternatives considered:** Astro (less JS but less component composability for the interactive desktop), plain React SPA (no SSR/SEO), Remix (good but less Vercel-native).
+
+---
+
+## 2026-06-06 — Window state in Zustand, not React context
+
+Window state (positions, z-indices, open/closed, minimized) lives in a Zustand store, not React context.
+
+**Why:** Clicking any window needs to update only that window's z-index without re-rendering every other window. React context rerenders the entire subtree on any state change. Zustand with per-window selectors re-renders only the window whose state changed. At 5–7 overlapping windows with drag interactions on every pointer move, the difference is perceptible.
+
+**Alternatives considered:** React context (rerender problem), URL state (noisy, confusing for users), Redux (too much ceremony for this scope).
+
+---
+
+## 2026-06-06 — Website mode state: URL param + localStorage
+
+The desktop/website mode toggle writes to both the URL (`?mode=website`) and localStorage. Priority on read: URL param > localStorage > default (desktop).
+
+**Why URL param:** Makes the preference shareable — a user who prefers the conventional layout can bookmark `/?mode=website`. **Why localStorage:** Survives a refresh within a session without requiring the URL param every time. **Why not just localStorage:** A shared link should respect the sender's intent.
+
+**Alternatives considered:** React state only (resets on refresh, not shareable), cookie (overkill, GDPR surface), URL only (URL gets noisy when the user navigates).
+
+---
+
+## 2026-06-06 — Copy as a static typed constants file (`lib/copy.ts`)
+
+All on-page copy lives in `lib/copy.ts` as a typed `as const` object keyed by section ID (matching `COPY.md §section-id`). Components import `copy["hero-headline"]`. There is no runtime fetch, no CMS, no database.
+
+**Why:** Copy is decided before implementation (Option C). It doesn't change at runtime. A static file gives TypeScript exhaustive checking — remove a key, every reference errors at build time. A CMS would add complexity (API calls, loading states, caching) with no benefit at launch-time traffic.
+
+**How it's written:** The copy session (Session 3) produces `COPY.md`. The content session (Session 5) translates COPY.md section IDs directly to `lib/copy.ts` object keys — a manual one-time step, not codegen.
+
+**Alternatives considered:** CMS (Contentful, Sanity — no benefit at this scale and adds a runtime dependency), i18n library (no internationalization need), inline strings (defeats the purpose of COPY.md discipline).
+
+---
+
+## 2026-06-06 — Desktop navigation is window state, not routing
+
+"Navigating" on the desktop (opening About, Features, Docs) changes window state, not the URL. The URL stays `/` throughout. The `/docs` route exists as a separate page only for direct linking and crawlability.
+
+**Why:** Window-based navigation is the OS metaphor. URL-based navigation would mean each "app" has a URL and the back button navigates between apps — but the desktop metaphor implies apps are all open simultaneously, not a linear history. URL params for each open window would be unwieldy (`/?open=about,features,demo`).
+
+**Trade-off:** Deep-linking to a specific window is not supported at launch. If a user shares a URL, the recipient gets the default desktop layout, not the exact open-window state. Acceptable for launch.
+
+---
+
+## 2026-06-06 — Desktop metaphor disabled below 768px
+
+At viewport widths below 768px, the website mode is forced on. The desktop metaphor is unavailable at mobile widths. The mode toggle is hidden. A brief banner explains why.
+
+**Why:** Freely positioned, overlapping, draggable windows require a minimum viewport to be usable. Below ~768px, the windows would either overflow the viewport or be too small to read. The PostHog OS metaphor has the same limitation. Rather than a degraded desktop experience, the conventional layout is cleaner and serves mobile visitors better.
+
+**Alternatives considered:** Stacked/non-draggable windows at mobile (tried by PostHog, mixed results — it still requires horizontal scroll management and loses the metaphor's appeal without the interactivity), responsive window sizes (the windows become too small to be useful before the viewport does).
+
+---
+
+## 2026-06-06 — Demo ghost cursor coordinates are window-relative
+
+All `{x, y}` coordinates in the demo script (`DemoScript.ts`) are relative to the `DemoWindow` content area, not the viewport. The demo looks correct regardless of where the user has dragged the window.
+
+**Why:** If coordinates were viewport-relative, the demo would point at the wrong things every time the window is moved. Window-relative coordinates mean the demo is always internally consistent. The `GhostCursor` component receives viewport-adjusted coords by adding the window's current position — this transformation happens in `DemoPlayer`, not in the script data.
+
+---
+
+## 2026-06-06 — Zustand for window state, `sessionStorage` persistence
+
+Window positions and open/close state are persisted to `sessionStorage` (not `localStorage`). Every new browser session starts with the designed default layout.
+
+**Why `sessionStorage` over `localStorage`:** If the user rearranges windows and comes back a week later, a restored layout is confusing — the windows might be off-screen or in positions that make no sense without context. `sessionStorage` gives a clean slate on every new visit while preserving state across accidental refreshes within the same session.
+
+**Why not no persistence:** A refresh that resets all window positions mid-exploration is jarring. `sessionStorage` is the minimal persistence that avoids that.

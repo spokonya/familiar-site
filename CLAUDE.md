@@ -14,6 +14,7 @@ The marketing and product website for Familiar (a Mac-native ambient agent). Sep
 ## Key reference docs
 Session prompts specify which docs to read. The non-negotiable ones:
 - `docs/reference/FAMILIAR_README.md` — what Familiar actually does (product source of truth)
+- `docs/reference/ARCHITECTURE.md` — system architecture, component contracts, state model, demo pipeline (read before any implementation session)
 - `docs/reference/POSITIONING.md` — voice, forbidden phrases, value props (output of Session 1)
 - `docs/reference/BRAND.md` — palette, type, Mac OS 9 rules (output of Session 2)
 - `docs/reference/MACOS9_REFERENCE.md` — specific Platinum UI details (output of Session 2)
