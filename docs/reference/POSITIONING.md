@@ -1,213 +1,156 @@
 # POSITIONING.md
 
-> **STATUS: IN PROGRESS — Session 1**
-> Parts 1–4 revised (ambient-memory-first framing). Part 5 (final synthesis) pending review.
+> **STATUS: COMPLETE — Session 1**
 
 ---
 
 ## §pitch
 
-### Context
-Familiar is three things layered on top of each other:
-1. **Ambient screen memory** (like Rewind / littlebird) — runs quietly in the background, indexes your screen, lets you recall anything you've worked on
-2. **An agent that acts on your Mac** (like Claude computer use) — does tasks for you in real apps, on your actual screen
-3. **A guide mode** (like Clicky) — walks you through tasks step by step, you stay in control
-
-The ghost cursor is the *visible mechanism* for modes 2 and 3 — how you see what's happening — not the product's identity. Lead with the memory + action stack.
-
-### Locked
 **"Familiar is a Mac assistant that keeps a running memory of your screen — and can step in to handle tasks for you, or walk you through them click by click."**
 
-Passes the checks:
-- Non-technical reader understands all three layers: memory, action, guidance
-- "Tasks" bridges the memory layer to the action layer — clear referent for "them"
+- Non-technical reader gets all three layers: memory, action, guidance
+- "Tasks" bridges the memory and action clauses — clear referent for "them"
 - No jargon, no AI-product abstractions
-- Concrete: Mac, screen, tasks, click by click
-- Positions it above "AI chatbot" — this thing operates on your computer
-
-### Alternatives considered
-- "...and can do things on it when you ask, or walk you through them" — rejected, "do things" is too vague
-- "...and can take over and do the work, or show you exactly where to click" — good but "take over" reads slightly aggressive
-- "...and can do the work for you, or point you through it step by step" — solid fallback
+- Concrete nouns: Mac, screen, tasks, click by click
 
 ---
 
 ## §audience
 
-### Primary (at launch)
-**Mac users who are deep in their own work and need a computer that can keep up — recalling what they've been doing, taking over repetitive tasks, or showing them the way through unfamiliar territory.**
+### Primary
+Knowledge workers and independent professionals (researchers, consultants, designers, engineers, solopreneurs) who spend hours a day on their Mac doing substantive work. They accumulate context across sessions — tabs, documents, apps, notes — and lose track of it. They also encounter tools outside their expertise, and tasks tedious enough to delegate if they could.
 
-More precisely: knowledge workers and independent professionals (researchers, consultants, designers, engineers, solopreneurs) who spend hours a day on their Mac doing substantive work. They accumulate context across sessions — tabs, documents, apps, notes — and currently lose track of it. They also do tasks that are tedious or outside their expertise and want to delegate them without leaving their Mac or switching tools.
-
-They're not early adopters specifically — but they're people whose work has enough complexity that the productivity gap between "I can ask my Mac to do this" and "I have to do this myself" is real and felt daily.
+They're not early adopters specifically. They're people whose work is complex enough that the gap between "my Mac can handle this" and "I have to do this myself" is real and felt daily.
 
 Age skew: 25–45. Comfortable with their Mac. Willing to give a menu-bar app screen permissions if it earns the trust.
 
-### Secondary (growth)
-- **Developers and technical users** who want to automate UI tasks without writing scripts. Familiar's Agent mode does it from natural language.
-- **People who train or onboard others.** Guide mode walks someone through a tool step by step — it's a teaching instrument.
+### Secondary
+- **Developers and technical users** who want to automate UI tasks without writing scripts.
+- **People who train or onboard others.** Guide mode is a teaching instrument — it narrates every step and waits for a click.
 - **Anyone who's tried Rewind, Recall, or similar** and wanted it to *do* something with the history, not just show it back.
 
 ---
 
 ## §use-cases
 
-Concrete. Each names a real app or situation. These are the scenarios for the homepage — ordered to show all three capabilities.
+Each names a real app or situation. These are the homepage scenarios, ordered to show all three capabilities.
 
-1. **"What was I working on yesterday afternoon?"** In Chat mode: Familiar searches its running memory — the tabs you had open, the documents you were in, the threads you read — and answers. No notes required.
+1. **"What was I working on yesterday afternoon?"** Familiar searches its running memory — tabs open, documents in progress, threads read — and answers. No notes required.
 
-2. **Learning Figma, Blender, CAD — without a YouTube tab.** In Guide mode: Familiar reads your screen and walks you through whatever the software asks you to do — pointing to the right panel, telling you what to click, waiting for you before moving on. The tutorial is right there on top of the app. No pausing, no tabbing away, no losing your place.
+2. **Learning Figma, Blender, or CAD — without opening a YouTube tab.** Familiar reads the screen and guides you through the software: pointing to the right panel, telling you what to click, waiting before moving on. The tutorial is right on top of the app. No pausing, no tabbing away, no losing your place.
 
-3. **"Book me a flight to Portland, leaving Friday."** In Agent mode: Familiar opens Safari, navigates to the airline site, fills in the dates, and steps through the booking — the ghost cursor visible at every move, stopping before payment for your approval.
+3. **"Book me a flight to Portland, leaving Friday."** Familiar opens Safari, navigates to the airline site, fills in the dates, and steps through the booking — the ghost cursor visible at every move — stopping before payment for your approval.
 
-4. **"What does this error mean?"** In Chat mode, with Terminal or Xcode frontmost: Familiar already sees the error. You don't copy or describe anything — it reads your screen and explains it.
+4. **"What does this error mean?"** Terminal or Xcode is frontmost. Familiar already sees the error. You don't copy or describe anything.
 
-5. **"Rename all these files by their date."** In Agent mode, in Finder: Familiar reads the file names and renames them according to the rule you describe. Done while you do something else.
+5. **"Rename all these files by their date."** Familiar reads the file names in Finder and renames them according to the rule you describe. Done while you do something else.
 
-**The Guide mode insight** (use this framing in copy): The strongest argument for Guide mode isn't "it helps you do hard things" — it's "you never have to leave the screen to learn." Figma, Blender, After Effects, CAD tools, complex settings panels — tools that normally send you to YouTube. Familiar keeps you in the app.
+**Guide mode copy note:** The strongest argument for Guide mode is not "it helps with hard things" — it's "you never have to leave the screen to learn." Figma, Blender, After Effects, CAD tools — software that normally sends you to YouTube. Use that framing in Guide mode copy.
 
 ---
 
 ## §voice
 
-### The register
-One voice, four contexts. Always: direct, precise, warm without being cute. Treats the reader as a capable adult. Never explains what the reader already knows.
-
-The mental model: a skilled friend sitting next to you at the keyboard. They say "click that blue button" not "please navigate to the relevant interface element." They're quick. They don't over-explain. They're quietly confident.
-
----
+**The register:** Direct, precise, warm without being cute. Treats the reader as a capable adult. A skilled friend sitting next to you at the keyboard — they say "click that blue button," not "navigate to the relevant interface element." Quick, unhedged, quietly confident.
 
 ### Headline register
 
-**Sounds like:**
-- "Shows you where. Or does it for you."
-- "It sees what you're looking at."
+Sounds like:
+- "Your Mac remembers."
+- "Never leave the screen to learn."
 - "Doesn't read what it shouldn't."
-- "Yours to stop at any time."
 
-**Doesn't sound like:**
-- "AI-powered productivity for Mac users" (category label, not a claim)
-- "Your intelligent Mac companion" (vague, soft)
-- "Supercharge your workflow with Familiar" (hype register, meaningless)
-- "The future of human-computer interaction" (grandiose and empty)
+Doesn't sound like:
+- "AI-powered productivity for Mac users"
+- "Your intelligent Mac companion"
+- "Supercharge your workflow"
 
-**Rules:** Use verbs. Keep it under 8 words. Make it a claim the reader can verify or challenge, not a feeling they're supposed to have.
-
----
+Rules: verbs over nouns, under 8 words, a claim the reader can verify — not a feeling they're supposed to have.
 
 ### Body copy register
 
-**Sounds like:**
-- "Type 'book me a flight to Portland' and Familiar opens Safari, finds the right page, and fills in the form — stopping before it pays for anything."
+Sounds like:
+- "Type 'book me a flight to Portland' and Familiar opens Safari, finds the page, and fills in the form — stopping before it pays for anything."
 - "Switch to 1Password and Familiar stops. That's on purpose. It never reads password fields."
 - "The ghost cursor is always visible. You see exactly what Familiar is about to do before it does it."
 
-**Doesn't sound like:**
+Doesn't sound like:
 - "Leverage Familiar's AI-powered contextual awareness to seamlessly accomplish your goals."
-- "Our advanced natural language processing understands your intent and maps it to actionable steps."
-- "Familiar helps users achieve their productivity objectives through intelligent automation."
+- "Our advanced natural language processing maps your intent to actionable steps."
 
-**Rules:** Name real apps. Describe what actually happens. Use "you" and "Familiar" as the two actors. Active voice throughout.
-
----
+Rules: name real apps, describe what actually happens, "you" and "Familiar" as the two actors, active voice throughout.
 
 ### UI label register
 
-**Sounds like:**
-- "Guide me through this" (not "Enable Guided Assistance Mode")
-- "Do it for me" (not "Activate Agent")
-- "Stop" (not "Cancel current operation")
-- "Try again" (not "Retry")
+Sounds like: "Guide me through this" / "Do it for me" / "Stop" / "Try again"
 
-**Doesn't sound like:**
-- Verbs longer than two syllables in a button
-- Labels that assume the user already knows the system ("Toggle LLM mode")
-- Anything with "AI" in a button label
+Doesn't sound like: "Enable Guided Assistance Mode" / "Activate Agent" / "Cancel current operation"
 
-**Rules:** Imperative, one to three words, describes what happens from the user's perspective not the system's.
-
----
+Rules: imperative, 1–3 words, the user's perspective not the system's. No "AI" in a button label.
 
 ### Error / notice register
 
-**Sounds like:**
+Sounds like:
 - "Can't see password fields — that's on purpose."
 - "Paused. Familiar won't read the screen until you resume."
 - "1Password is frontmost. Familiar stopped."
 
-**Doesn't sound like:**
+Doesn't sound like:
 - "An error has occurred. Please try again."
 - "Familiar is unable to access the requested screen region at this time."
-- "Your privacy settings have prevented Familiar from proceeding."
 
-**Rules:** Specific, honest, never blames the user. If Familiar stopped, say why in plain English. Privacy stops are framed as features, not errors.
+Rules: specific, honest, never blames the user. Privacy stops are features, not errors.
 
 ---
 
 ## §forbidden-phrases
 
-Phrases that make the site sound like every other AI product. **Do not use these in any copy, including UI labels, error messages, or alt text.**
+Do not use these anywhere — copy, UI labels, error messages, alt text.
 
 | Phrase | Why |
 |--------|-----|
-| **"Seamless"** | The most overused word in SaaS copy. Means nothing. If the experience is smooth, the copy will show it. |
-| **"Supercharge"** | Pure hype with no content. Every product says this. |
-| **"Intelligent"** (as adjective for Familiar) | "Intelligent AI assistant" is redundant and vague. Show what it does, not that it's smart. |
-| **"Workflow"** | Bureaucratic. Familiar works with apps and tasks, not workflows. |
-| **"Game-changer"** | Tells the reader how to feel, doesn't give them a reason to. |
-| **"The future of [X]"** | Every product since 2010 has been the future of something. Means nothing. |
-| **"AI-powered"** (as a headline) | By 2026 this is assumed, not differentiating. Lead with what it does, not how it works. |
-| **"Productivity"** (as a headline concept) | Familiar isn't a Notion-category productivity tool. "Productivity" positions it wrong and attracts the wrong comparisons. |
-| **"Assistant"** (as the primary noun) | "AI assistant" is the generic category. Familiar is more specific than that — it's physically on your screen. Lead with what makes it different. |
-| **"Automation"** (as headline concept) | Implies scripts, pipelines, Zapier. Familiar is a ghost cursor that does things — it's more visceral and present than "automation" suggests. |
-| **"Copilot"** | Microsoft's trademark and now a generic category term. We're not a copilot. |
+| **"Seamless"** | Overused filler. If the experience is smooth, the copy will show it. |
+| **"Supercharge"** | Hype with no content. |
+| **"Intelligent"** (as adjective for Familiar) | Vague and redundant. Show what it does. |
+| **"Workflow"** | Bureaucratic. Familiar works with apps and tasks. |
+| **"Game-changer"** | Tells the reader how to feel without giving them a reason. |
+| **"The future of [X]"** | Every product claims this. Meaningless. |
+| **"AI-powered"** (as a headline) | Assumed by 2026. Not differentiating. Lead with what it does. |
+| **"Productivity"** (as headline concept) | Wrong category framing. Attracts the wrong comparisons. |
+| **"Assistant"** (as primary noun) | Generic category. Familiar is more specific — it's on your screen, operating on your Mac. |
+| **"Automation"** (as headline concept) | Implies scripts and pipelines. Familiar is present and visible, not background automation. |
+| **"Copilot"** | Microsoft's term, now a category. We're not a copilot. |
 | **"Seamlessly integrates"** | Always false, always used to smooth over complexity. |
 
 ---
 
 ## §value-props
 
-In priority order. These become the homepage sections.
-
-**Priority rationale:** Lead with ambient memory — it's the foundational layer and the most differentiated single feature (passive, always-on, no competitor does it + acts). Then action (Agent), then guided action (Guide), then the privacy layer that makes all of it trustworthy. The ghost cursor is a feature of Agent and Guide, introduced there, not a standalone prop.
-
----
+Priority order. These become the homepage sections.
 
 ### 1. Your Mac remembers
 
-**Headline form:** "Your Mac remembers."
-**Explanation:** Familiar runs quietly in the background and keeps a private, local index of your screen. What you read, what you built, what you were looking at — ask it later and it knows.
-**Concrete example:** "What was I working on yesterday at 3pm?" — Familiar searches its screen history and tells you, without you keeping any notes.
-**Why it's #1:** This is the ambient layer — the thing that makes Familiar qualitatively different from a chatbot or a one-shot tool. It accumulates value over time. It's also the hook: once someone understands their Mac can *remember*, they want it. Lead with the hook.
-
----
+**Headline:** "Your Mac remembers."
+**One line:** Familiar keeps a private, local running memory of your screen — what you read, built, and looked at — so you can ask about it later.
+**Example:** "What was I working on yesterday at 3pm?" Familiar tells you, without you keeping any notes.
 
 ### 2. Does it for you
 
-**Headline form:** "Does it for you."
-**Explanation:** Describe a task and Familiar handles it — navigating, clicking, filling in forms — on your actual screen, in real apps. A ghost cursor traces every move so you can watch and stop it at any time.
-**Concrete example:** "Book me a flight to Portland, leaving Friday." — Familiar opens Safari, finds the page, fills in the dates, and stops before paying for anything.
-**Why it's #2:** Agent mode is the most powerful and most surprising capability. "Does it for you" is the clearest value claim in the product. The ghost cursor gets mentioned here as a trust mechanic, not a lead feature.
+**Headline:** "Does it for you."
+**One line:** Describe a task and Familiar handles it — navigating, clicking, filling in forms — on your actual screen, in real apps, with a ghost cursor visible at every move.
+**Example:** "Book me a flight to Portland, leaving Friday." Familiar opens Safari, fills in the dates, and stops before paying for anything.
 
----
+### 3. Or walks you through it
 
-### 3. Or walks you through it — without leaving the screen
-
-**Headline form:** "Or walks you through it."
-**Explanation:** In Guide mode, Familiar points to each step and waits for your click — you stay in the app, it provides the expertise. The key contrast: tools like Figma, Blender, After Effects, and CAD normally send you to YouTube. Familiar keeps the tutorial right on top of the software.
-**Concrete example:** You open Blender for the first time. Instead of finding a tutorial and tabbing back and forth, you ask Familiar. It reads your screen, points to the right panel, tells you what to click, and waits. You never leave the app.
-**Why it's #3:** Guide mode's strongest argument isn't "it helps you do hard things" — it's "you never have to leave the screen to learn." High-barrier software (Figma, Blender, CAD, After Effects) is the hero use case. It pairs with Agent on the same page to show the full range: Familiar does it for you, or teaches you how.
-
----
+**Headline:** "Or walks you through it."
+**One line:** In Guide mode, Familiar points to each step and waits for your click — the tutorial lives right on top of the app, so you never have to leave the screen to learn.
+**Example:** First time in Blender. Familiar reads the screen, points to the right panel, tells you what to click, and waits. No YouTube tab.
 
 ### 4. Doesn't read what it shouldn't
 
-**Headline form:** "Doesn't read what it shouldn't."
-**Explanation:** Password fields, 1Password, Keychain, and other sensitive apps are blocked automatically — no configuration. Familiar stops when you switch to them. You can also pause it entirely with ⌘⇧P.
-**Concrete example:** You're mid-task and switch to 1Password. Familiar stops immediately. No screenshot taken, no AI call made.
-**Why it's #4:** The ambient memory and agent capabilities both require screen access. Privacy gates are what make that access trustworthy. This isn't a footnote — it's the reason a careful person says yes.
+**Headline:** "Doesn't read what it shouldn't."
+**One line:** Password fields, 1Password, Keychain — blocked automatically, no configuration. Familiar stops when you switch to them.
+**Example:** Mid-task, you switch to 1Password. Familiar stops immediately. No screenshot, no AI call.
 
----
-
-### Note on the ghost cursor
-The ghost cursor is *how Agent and Guide mode look*, not a value prop on its own. It earns a mention inside prop #2 ("a ghost cursor traces every move") and prop #3 ("Familiar points to each step"). It does not have its own section. Its job is to make the agent/guide capabilities feel transparent and controllable — it serves the trust argument, not the acquisition argument.
+### Ghost cursor note
+The ghost cursor is how Agent and Guide mode look, not a standalone value prop. It appears inside prop #2 ("a ghost cursor visible at every move") and prop #3 ("Familiar points to each step") as a trust mechanic. It does not have its own section.
