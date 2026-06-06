@@ -15,27 +15,20 @@ Familiar is three things layered on top of each other:
 
 The ghost cursor is the *visible mechanism* for modes 2 and 3 — how you see what's happening — not the product's identity. Lead with the memory + action stack.
 
-### Recommended
-**"Familiar is a Mac assistant that keeps a running memory of your screen — and can do things on it when you ask, or walk you through them."**
+### Locked
+**"Familiar is a Mac assistant that keeps a running memory of your screen — and can step in to handle tasks for you, or walk you through them click by click."**
 
 Passes the checks:
-- Non-technical reader understands all three layers: memory, doing, guiding
+- Non-technical reader understands all three layers: memory, action, guidance
+- "Tasks" bridges the memory layer to the action layer — clear referent for "them"
 - No jargon, no AI-product abstractions
-- Concrete: Mac, screen, do things, walk through
-- Positions it above "AI chatbot" — this thing actually operates on your computer
+- Concrete: Mac, screen, tasks, click by click
+- Positions it above "AI chatbot" — this thing operates on your computer
 
-### Alternative A
-"Familiar watches your Mac's screen, remembers everything you've worked on, and can step in — doing tasks for you, or walking you through them."
-
-"Watches" and "remembers" lead with the ambient layer. Slightly longer but makes the always-on quality clear.
-
-### Alternative B
-"Familiar lives in your Mac's menu bar, keeping track of your screen — ask it about anything you've done, or tell it to do something now."
-
-Emphasizes the recall / query dimension. Softer, no mention of automation. Better if the memory feature is the primary hook.
-
-### Recommendation
-Go with the recommended. It names all three capabilities in one sentence without making the ghost cursor the lead. The ghost cursor gets introduced visually when the demo plays — it doesn't need to carry the pitch.
+### Alternatives considered
+- "...and can do things on it when you ask, or walk you through them" — rejected, "do things" is too vague
+- "...and can take over and do the work, or show you exactly where to click" — good but "take over" reads slightly aggressive
+- "...and can do the work for you, or point you through it step by step" — solid fallback
 
 ---
 
