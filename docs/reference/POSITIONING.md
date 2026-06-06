@@ -54,15 +54,17 @@ Age skew: 25–45. Comfortable with their Mac. Willing to give a menu-bar app sc
 
 Concrete. Each names a real app or situation. These are the scenarios for the homepage — ordered to show all three capabilities.
 
-1. **"What was I working on yesterday afternoon?"** In Chat mode: Familiar searches its screen history — the tabs you had open, the documents you were in, the threads you read — and answers. No notes required.
+1. **"What was I working on yesterday afternoon?"** In Chat mode: Familiar searches its running memory — the tabs you had open, the documents you were in, the threads you read — and answers. No notes required.
 
-2. **"Book me a flight to Portland, leaving Friday."** In Agent mode: Familiar opens Safari, navigates to the airline site, fills in the dates, and steps through the booking — the ghost cursor visible at every move, stopping before payment for your approval.
+2. **Learning Figma, Blender, CAD — without a YouTube tab.** In Guide mode: Familiar reads your screen and walks you through whatever the software asks you to do — pointing to the right panel, telling you what to click, waiting for you before moving on. The tutorial is right there on top of the app. No pausing, no tabbing away, no losing your place.
 
-3. **"Walk me through setting up this Postgres database."** In Guide mode: Familiar reads your screen, points to each field or command, tells you what to do, and waits for your click before moving on. You stay at the keyboard; it's the expert.
+3. **"Book me a flight to Portland, leaving Friday."** In Agent mode: Familiar opens Safari, navigates to the airline site, fills in the dates, and steps through the booking — the ghost cursor visible at every move, stopping before payment for your approval.
 
 4. **"What does this error mean?"** In Chat mode, with Terminal or Xcode frontmost: Familiar already sees the error. You don't copy or describe anything — it reads your screen and explains it.
 
 5. **"Rename all these files by their date."** In Agent mode, in Finder: Familiar reads the file names and renames them according to the rule you describe. Done while you do something else.
+
+**The Guide mode insight** (use this framing in copy): The strongest argument for Guide mode isn't "it helps you do hard things" — it's "you never have to leave the screen to learn." Figma, Blender, After Effects, CAD tools, complex settings panels — tools that normally send you to YouTube. Familiar keeps you in the app.
 
 ---
 
@@ -189,12 +191,12 @@ In priority order. These become the homepage sections.
 
 ---
 
-### 3. Or walks you through it
+### 3. Or walks you through it — without leaving the screen
 
 **Headline form:** "Or walks you through it."
-**Explanation:** In Guide mode, Familiar points to each step and waits for your click — you stay at the keyboard, it provides the expertise. Same command, different amount of control.
-**Concrete example:** "Walk me through setting up this database." — Familiar reads the screen, points to each field, and tells you exactly what to type before moving on.
-**Why it's #3:** Guide mode is the conservative, trust-building mode. It pairs with Agent on the same page to show that Familiar adjusts to how much you want to hand off.
+**Explanation:** In Guide mode, Familiar points to each step and waits for your click — you stay in the app, it provides the expertise. The key contrast: tools like Figma, Blender, After Effects, and CAD normally send you to YouTube. Familiar keeps the tutorial right on top of the software.
+**Concrete example:** You open Blender for the first time. Instead of finding a tutorial and tabbing back and forth, you ask Familiar. It reads your screen, points to the right panel, tells you what to click, and waits. You never leave the app.
+**Why it's #3:** Guide mode's strongest argument isn't "it helps you do hard things" — it's "you never have to leave the screen to learn." High-barrier software (Figma, Blender, CAD, After Effects) is the hero use case. It pairs with Agent on the same page to show the full range: Familiar does it for you, or teaches you how.
 
 ---
 
