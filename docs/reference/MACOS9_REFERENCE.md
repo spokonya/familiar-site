@@ -8,7 +8,7 @@
 
 ---
 
-## §easy-tells
+## Easy Tells
 
 **The pre-commit checklist.** Before finishing any window chrome work, verify every item.
 
@@ -25,7 +25,7 @@
 
 ---
 
-## §title-bar
+## Title Bar
 
 ### Dimensions
 - **Height:** 22 px (from outer top border to top of content area, inclusive of the 1 px top outer border)
@@ -74,7 +74,7 @@ When the window does not have focus:
 - Color inactive: `#808080`
 - Alignment: **horizontally centered** between the leftmost button edge and the rightmost button edge
 - Overflow: `text-overflow: ellipsis` before touching either control cluster (8 px clearance on each side)
-- Font: see §typography
+- Font: see the Typography section below
 
 ### Outer window border (the 3D bevel)
 - 1 px solid `#808080` on all four outer sides
@@ -91,7 +91,7 @@ box-shadow:
 
 All three layers are required to produce the "raised Platinum frame." A bevel with only the `#FFFFFF` top-left highlight looks raised on two sides and flat on the other two — incomplete and wrong.
 
-### §window-shadow
+### Window Shadow
 Mac OS 9 windows cast a **hard 2 px offset shadow** — no blur, no spread, flat offset to the bottom-right. This is one of the clearest Mac OS 9 tells; a modern soft CSS shadow instantly breaks the illusion.
 
 ```css
@@ -107,7 +107,7 @@ box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.35);
 
 ---
 
-## §window-controls
+## Window Controls
 
 ### Layout
 Three buttons in the title bar. In Mac OS 9, the **close box is on the left** and the **zoom box is on the far right**. The **collapse (windowshade) box** is immediately to the left of the zoom box.
@@ -143,7 +143,7 @@ The top+left 1 px inner highlight + bottom+right 1 px dark outer border creates 
 **Inactive window button state:** When the window loses focus, all three control buttons (`opacity: 0` on their content). The button shell remains — a very faint 13×13 ghost outline (`opacity: 0.2`) indicates where the buttons are. Restore to `opacity: 1` on focus. Use `transition: opacity 150ms ease`. This is the single most visually distinct OS 9 behavior — every other windowing system keeps controls visible on inactive windows. Getting this right immediately reads as "Mac."
 
 ### Windowshade behavior
-Clicking the collapse button collapses the window to title-bar-only height (content area hidden, `height: 0`). The window retains its width. A second click restores. This behavior must be supported in the `WindowManager` store as `minimizeWindow` (see `ARCHITECTURE.md §window-manager-contract`, which exists and is complete).
+Clicking the collapse button collapses the window to title-bar-only height (content area hidden, `height: 0`). The window retains its width. A second click restores. This behavior must be supported in the `WindowManager` store as `minimizeWindow` (see `ARCHITECTURE.md (window-manager-contract section)`, which exists and is complete).
 
 ### NOT present in Mac OS 9
 - ❌ Red / yellow / green colored dots (Mac OS X)
@@ -153,10 +153,10 @@ Clicking the collapse button collapses the window to title-bar-only height (cont
 
 ---
 
-## §scrollbars
+## Scrollbars
 
 ### Why custom implementation is required
-Mac OS 9 scrollbars have **scroll arrows at both ends of the track**. CSS `scrollbar-*` APIs cannot produce this. The `<ScrollArea>` component must be custom-built with `overflow: hidden` on the content container and a rendered overlay for the track, thumb, and arrows. See `ARCHITECTURE.md §scrollbars`.
+Mac OS 9 scrollbars have **scroll arrows at both ends of the track**. CSS `scrollbar-*` APIs cannot produce this. The `<ScrollArea>` component must be custom-built with `overflow: hidden` on the content container and a rendered overlay for the track, thumb, and arrows. See `ARCHITECTURE.md (scrollbars section)`.
 
 ### Anatomy — vertical scrollbar
 ```
@@ -198,11 +198,11 @@ background-size: 2px 2px;
 This is one of the most recognizable Platinum details and is highly achievable in CSS.
 
 ### Scroll corner
-When both scrollbars are present, the 16 × 16 px bottom-right corner box is flat `#BBBBBB` — no resize affordance here. The resize handle is in the window's outer bottom-right (see §resize-handle), not the scroll corner.
+When both scrollbars are present, the 16 × 16 px bottom-right corner box is flat `#BBBBBB` — no resize affordance here. The resize handle is in the window's outer bottom-right (see the Resize Handle section above), not the scroll corner.
 
 ---
 
-## §resize-handle
+## Resize Handle
 
 - **Position:** bottom-right corner of the window, inside the 1 px outer border — a 16 × 16 px zone
 - **Appearance:** hatch marks — diagonal parallel lines in `#808080` on `#BBBBBB`
@@ -221,7 +221,7 @@ background-position: 0 0, 2px 2px;
 
 ---
 
-## §typography
+## Typography
 
 ### Charcoal — the Mac OS 9 system font
 Charcoal is Apple's proprietary sans-serif for Mac OS 8/9. It is not available as a web font. It is a low-contrast grotesque, slightly rounded terminals, x-height similar to Helvetica Neue — neutrally legible at 11–12 px screen sizes.
@@ -235,7 +235,7 @@ font-family: "Chicago", "Charcoal", ui-sans-serif, -apple-system, system-ui, san
 On macOS, `-apple-system` resolves to SF Pro which is acceptable for small UI labels. The `Chicago` and `Charcoal` declarations trigger for anyone who has them installed (rare, but harmless).
 
 For **content inside windows** (body copy, headings, descriptions):
-Defined in `BRAND.md §typography`. Content typeface differs from chrome typeface.
+Defined in `BRAND.md (typography section)`. Content typeface differs from chrome typeface.
 
 ### Chrome font size scale
 
@@ -252,7 +252,7 @@ Mac OS 9 did not anti-alias text below ~16 px. For implementation: allow the bro
 
 ---
 
-## §menu-bar
+## Menu Bar
 
 ### Position and dimensions
 - `position: fixed; top: 0; left: 0; right: 0`
@@ -290,7 +290,7 @@ The OS 9 default highlight color is `#2244CC`. Familiar uses `#378ADD` consisten
 
 ---
 
-## §desktop
+## Desktop
 
 ### Background
 - **Base color:** `#335577` — a deep teal-blue that approximates the Mac OS 9 default desktop pattern
@@ -309,7 +309,7 @@ Icons snap to a 64 × 64 px grid on the desktop. Default positions for all deskt
 
 ---
 
-## §trash
+## Trash
 
 ### Position
 Bottom-right corner of the desktop. Fixed to the viewport. Z-index below all windows.
@@ -324,7 +324,7 @@ At launch the Trash is decorative — clicking it does nothing functional. On ho
 
 ---
 
-## §dialog-boxes
+## Dialog Boxes
 
 ### Chrome
 Dialog boxes use the same Platinum outer bevel (1 px `#808080` outer border + 1 px `#FFFFFF` inner highlight on top+left). Background is `#EEEEEE` (slightly lighter than `#DDDDDD` — dialogs feel slightly "elevated" from the desktop).
@@ -359,9 +359,9 @@ Mac convention: Cancel on the left, default action (OK/Save/Open) on the right. 
 
 ---
 
-## §platinum-color-system
+## Platinum Color System
 
-The complete Platinum chrome palette. These are the **chrome-layer tokens**. `BRAND.md §palette` references these as the chrome sub-layer and adds content-layer tokens (body type, accent colors, etc.) on top. Do not duplicate these in BRAND.md — import by reference. The CSS variables are defined once in `app/globals.css` and used in both chrome components and BRAND.md semantic mappings.
+The complete Platinum chrome palette. These are the **chrome-layer tokens**. `BRAND.md (palette section)` references these as the chrome sub-layer and adds content-layer tokens (body type, accent colors, etc.) on top. Do not duplicate these in BRAND.md — import by reference. The CSS variables are defined once in `app/globals.css` and used in both chrome components and BRAND.md semantic mappings.
 
 | CSS var name | Hex | Role |
 |---|---|---|
@@ -384,7 +384,7 @@ The complete Platinum chrome palette. These are the **chrome-layer tokens**. `BR
 
 ---
 
-## §web-adaptation-notes
+## Web Adaptation Notes
 
 ### Retina / HiDPI displays
 Mac OS 9 was designed for **pixel-precise rendering at 1× scale**. At 2× (Retina), the pixelated quality is lost — this is expected and acceptable. Two approaches:
