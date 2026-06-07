@@ -138,6 +138,28 @@ At viewport widths below 768px, the website mode is forced on. The desktop metap
 
 ---
 
+## 2026-06-07 — Two-layer Tailwind token architecture (`--platinum-*` + `--color-*`)
+
+Brand tokens are split into two layers declared in `app/globals.css`.
+
+**Chrome layer (`--platinum-*`):** Declared in `:root` as plain CSS custom properties. Used via `var(--platinum-*)` directly in chrome components. Not mapped into Tailwind utilities — chrome components are isolated and don't need utility classes.
+
+**Content layer (`--color-*`):** Declared in `@theme` (Tailwind v4 CSS-first config). This makes each token available as both a CSS variable (`var(--color-accent)`) and a Tailwind utility (`bg-accent`, `text-accent`, etc.). Font variables from `next/font` go in `@theme inline` (not `@theme`) to avoid circular references — they reference runtime CSS vars that don't exist at build time.
+
+**Why not put `--platinum-*` in `@theme` too:** Chrome components will be hand-crafted with inline styles or CSS modules to precisely replicate Platinum UI. Utility classes would add indirection without benefit. The separation also makes it obvious which tokens belong to OS chrome vs. content.
+
+---
+
+## 2026-06-07 — `/tokens` route as dev-only visual verification baseline
+
+A swatch page at `/tokens` (app/tokens/page.tsx) renders every brand token, the Geist type scale, the chrome font scale, and active+inactive window chrome samples side-by-side.
+
+**Why:** Session 4 implementation begins with window chrome components. The `/tokens` page serves as a visual regression baseline — if a token value or chrome rule changes, the diff is immediately visible without having to build out real UI. It also verifies that the Tailwind `@theme` tokens actually produce the correct utilities at build time.
+
+**It is not linked from navigation and is never shipped as a real page.** It exists purely as a development tool. The easy-tells checklist on the page mirrors `MACOS9_REFERENCE.md easy-tells` for quick reference during chrome implementation.
+
+---
+
 ## 2026-06-06 — Demo ghost cursor coordinates are window-relative
 
 All `{x, y}` coordinates in the demo script (`DemoScript.ts`) are relative to the `DemoWindow` content area, not the viewport. The demo looks correct regardless of where the user has dragged the window.
