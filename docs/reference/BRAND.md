@@ -10,7 +10,7 @@ Everything else (palette, type, window chrome) is determined in Session 2.
 
 ## Structure (to be filled in Session 2)
 
-### §palette
+### palette
 All color tokens, mapped to their Mac OS 9 role.
 Format: `--color-[name]: [hex]` — CSS variable names for Tailwind v4.
 
@@ -26,21 +26,21 @@ Expected tokens:
 - Shadow
 - Alert/dialog background
 
-### §typography
+### typography
 Web font choices, size scale, weight usage.
 - Charcoal substitute strategy (Charcoal was Mac OS 9's system font — what web font approximates it?)
 - Size scale (heading levels, body, UI labels, caption)
 - Weight rules
 
-### §window-chrome
+### window-chrome
 Specific rules derived from MACOS9_REFERENCE.md:
 - When to use pinstripes (always in title bars; rules for other chrome?)
 - Title bar height (exact px value)
 - Window control button spec (size, position, colors for close/zoom/collapse)
 - Resize handle treatment
 
-### §icon-style
+### icon-style
 Style guidance for any icons used (folder icons, Trash, application icons in the demo).
 
-### §do-not
+### do-not
 Visual anti-patterns. Things that would break the Mac OS 9 illusion or make the site look generic.

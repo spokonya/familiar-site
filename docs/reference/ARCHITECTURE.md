@@ -51,7 +51,7 @@ Every window in the window manager is one of these:
 ```typescript
 type WindowState = {
   id: string;              // stable, e.g. "about", "demo", "features", "docs"
-  title: string;           // title bar text — from COPY.md §window-title-{id}
+  title: string;           // title bar text — from COPY.md window-title-{id}
   position: { x: number; y: number };  // top-left in desktop coordinates (px)
   size: { width: number; height: number };
   isMinimized: boolean;
@@ -245,7 +245,7 @@ The player uses a `useRef` to hold the sequence index and a single `requestAnima
 ```typescript
 type WindowProps = {
   id: string;
-  title: string;                    // from COPY.md §window-title-{id}
+  title: string;                    // from COPY.md window-title-{id}
   children: React.ReactNode;        // the window's content component
   defaultPosition?: { x: number; y: number };
   defaultSize?: { width: number; height: number };
@@ -265,7 +265,7 @@ The `ScrollArea` is a div with `overflow: hidden` + a custom track-and-thumb ove
 
 ### Title bar pinstripes
 
-Implemented as a CSS `repeating-linear-gradient`, not an image. The exact colors and stripe width come from `MACOS9_REFERENCE.md §title-bar` (written in Session 2). The gradient is defined as a CSS custom property so it's editable in one place.
+Implemented as a CSS `repeating-linear-gradient`, not an image. The exact colors and stripe width come from `MACOS9_REFERENCE.md title-bar` (written in Session 2). The gradient is defined as a CSS custom property so it's editable in one place.
 
 ### Window controls
 
@@ -307,10 +307,10 @@ This is in `DECISIONS.md` — it's a product decision, not an implementation det
 
 | Doc | Issue | Fix |
 |-----|-------|-----|
-| `CLAUDE.md` §file-structure | Lists folders but not what goes in each or the component contracts | Update after Session 4 with actual paths |
+| `CLAUDE.md` file-structure | Lists folders but not what goes in each or the component contracts | Update after Session 4 with actual paths |
 | `DECISIONS.md` | Missing: routing strategy, website-mode state home, window state persistence, mobile breakpoints | Add those decisions |
-| `PROMPTS_BACKLOG.md` Session 4 | "Window manager" is listed but demo system isn't mentioned — Session 6 will be underspecified | Session 6 prompt should reference `ARCHITECTURE.md §demo` |
+| `PROMPTS_BACKLOG.md` Session 4 | "Window manager" is listed but demo system isn't mentioned — Session 6 will be underspecified | Session 6 prompt should reference `ARCHITECTURE.md demo` |
 | `PROMPTS_BACKLOG.md` Session 5 | "`lib/copy.ts` translation from COPY.md" is implicit | Make it explicit in the prompt |
-| `BRAND.md` stub | Doesn't mention `ScrollArea` custom component or why native scrollbars can't be used | Add a note to the §window-chrome section |
+| `BRAND.md` stub | Doesn't mention `ScrollArea` custom component or why native scrollbars can't be used | Add a note to the window-chrome section |
 
 These gaps don't block Session 1 (positioning) or Session 2 (brand). They matter from Session 4 onward. The Session 4 prompt in `PROMPTS_BACKLOG.md` should reference `ARCHITECTURE.md` as a required read.

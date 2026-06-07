@@ -18,7 +18,7 @@ Session prompts specify which docs to read. The non-negotiable ones:
 - `docs/reference/POSITIONING.md` — voice, forbidden phrases, value props (output of Session 1)
 - `docs/reference/BRAND.md` — palette, type, Mac OS 9 rules (output of Session 2)
 - `docs/reference/MACOS9_REFERENCE.md` — specific Platinum UI details (output of Session 2)
-- `docs/reference/COPY.md` — all on-page copy indexed by §section-id (output of Session 3)
+- `docs/reference/COPY.md` — all on-page copy indexed by section ID (output of Session 3)
 - `docs/reference/FAMILIAR_MODES.md` — Guide/Agent/Chat reference for copy sessions
 
 Standing orders are in `docs/reference/CLAUDE.md` — read that at the start of every session.

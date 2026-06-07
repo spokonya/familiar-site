@@ -108,7 +108,7 @@ The desktop/website mode toggle writes to both the URL (`?mode=website`) and loc
 
 ## 2026-06-06 — Copy as a static typed constants file (`lib/copy.ts`)
 
-All on-page copy lives in `lib/copy.ts` as a typed `as const` object keyed by section ID (matching `COPY.md §section-id`). Components import `copy["hero-headline"]`. There is no runtime fetch, no CMS, no database.
+All on-page copy lives in `lib/copy.ts` as a typed `as const` object keyed by section ID (matching `COPY.md section-id`). Components import `copy["hero-headline"]`. There is no runtime fetch, no CMS, no database.
 
 **Why:** Copy is decided before implementation (Option C). It doesn't change at runtime. A static file gives TypeScript exhaustive checking — remove a key, every reference errors at build time. A CMS would add complexity (API calls, loading states, caching) with no benefit at launch-time traffic.
 

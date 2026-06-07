@@ -58,8 +58,8 @@ List the 3–5 value props in priority order. These become the homepage sections
 For each: a one-line headline form, a one-sentence explanation, and one concrete example.
 
 PART 5 — Write POSITIONING.md
-Synthesize PARTS 1–4 into the final file. Structure: §pitch, §audience, §use-cases,
-§voice, §forbidden-phrases, §value-props. This file is referenced by every subsequent
+Synthesize PARTS 1–4 into the final file. Structure: pitch, audience, use-cases,
+voice, forbidden-phrases, value-props. This file is referenced by every subsequent
 copy session.
 
 SUCCESS CONDITIONS:
@@ -110,10 +110,10 @@ button style).
 
 PART 2 — Write BRAND.md
 Define the Familiar brand palette, type stack, and Mac OS 9 treatment rules.
-Sections: §palette (all color tokens, mapped to Mac OS 9 roles), §typography
+Sections: palette (all color tokens, mapped to Mac OS 9 roles), typography
 (web font choices, size scale, weight usage, Charcoal-substitute strategy),
-§window-chrome (specific rules: "when to use pinstripes," "title bar height,"
-"window control button spec"), §icon-style, §do-not (visual anti-patterns).
+window-chrome (specific rules: "when to use pinstripes," "title bar height,"
+"window control button spec"), icon-style, do-not (visual anti-patterns).
 
 PART 3 — Scaffold the Next.js project
 If `package.json` doesn't exist at the repo root: run
@@ -133,14 +133,14 @@ scrollbar) for visual verification. This page is never linked from the homepage;
 exists for session verification only.
 
 SUCCESS CONDITIONS:
-1. MACOS9_REFERENCE.md has the §easy-tells list and covers all eight listed sections.
-2. BRAND.md has all five sections populated (§palette, §typography, §window-chrome,
-   §icon-style, §do-not).
+1. MACOS9_REFERENCE.md has the easy-tells list and covers all eight listed sections.
+2. BRAND.md has all five sections populated (palette, typography, window-chrome,
+   icon-style, do-not).
 3. `npm run dev` starts cleanly and serves the swatch page at /tokens.
 4. The swatch page displays all color tokens labeled by CSS variable name, all type
    styles labeled by scale level, and a window chrome sample where the title bar
-   height, pinstripe, and control buttons match MACOS9_REFERENCE.md §title-bar and
-   §window-controls.
+   height, pinstripe, and control buttons match MACOS9_REFERENCE.md title-bar and
+   window-controls.
 5. `npm run typecheck` passes clean with zero errors.
 ```
 
@@ -156,7 +156,7 @@ SUCCESS CONDITIONS:
 ```
 Read CLAUDE.md and docs/reference/CLAUDE.md.
 Read docs/reference/POSITIONING.md in full.
-Read docs/reference/BRAND.md — specifically §voice-and-tone if present.
+Read docs/reference/BRAND.md — specifically voice-and-tone if present.
 Read docs/reference/FAMILIAR_README.md and docs/reference/FAMILIAR_MODES.md.
 Read docs/reference/INSPIRATION_POSTHOG.md — note what PostHog does with section structure
   but NOT their copy voice.
@@ -165,7 +165,7 @@ Create a new git branch named copy/session-03-homepage-copy.
 CONTEXT (session 3 of N, copy phase — no code this session):
 - The homepage IS the Mac OS 9 desktop. Copy appears inside window titles, window content,
   and possibly on the conventional "website mode" layout.
-- Copy is indexed by section ID (e.g., §hero-headline, §hero-subhead, §mode-guide-headline).
+- Copy is indexed by section ID (e.g., hero-headline, hero-subhead, mode-guide-headline).
   Components will reference these IDs; this makes copy revisions isolated.
 - Copy for the fake Familiar demo is NOT in scope this session — that's a later session
   with its own script.
@@ -187,15 +187,15 @@ that layout (same content, different arrangement). Section headers, body, CTAs.
 
 PART 4 — Write COPY.md
 Organize all copy from PARTS 2–3 into COPY.md with section IDs. Format:
-  ## §section-id
+  ## section-id
   **Label/context:** what this piece of copy is and where it appears
   **Copy:** the actual text
 
 SUCCESS CONDITIONS:
 1. COPY.md has at least 15 sections populated, covering hero, all major homepage sections,
    and CTAs.
-2. Every section has a unique §section-id.
-3. The copy does not use any phrase from POSITIONING.md §forbidden-phrases.
+2. Every section has a unique section-id.
+3. The copy does not use any phrase from POSITIONING.md forbidden-phrases.
 4. The hero headline is ≤8 words.
 5. All mode names (Guide, Agent, Chat) are capitalized consistently.
 6. No copy promises a feature not in FAMILIAR_README.md.
@@ -216,7 +216,7 @@ Read docs/reference/ARCHITECTURE.md in full — component contracts, window data
   state architecture, Zustand store shape, drag implementation, scrollbar notes.
 Read docs/reference/BRAND.md in full.
 Read docs/reference/MACOS9_REFERENCE.md in full — do not wing any Mac OS 9 chrome details.
-Read docs/reference/COPY.md for window titles (use §window-title-* IDs).
+Read docs/reference/COPY.md for window titles (use window-title-* IDs).
 Create a new git branch named feat/session-04-desktop-shell.
 
 CONTEXT (session 4 of N, implementation phase begins):
@@ -225,16 +225,16 @@ CONTEXT (session 4 of N, implementation phase begins):
   ARCHITECTURE.md — follow them. Do not invent a different state model.
 - Window chrome must match MACOS9_REFERENCE.md exactly — especially title bar height,
   pinstripe pattern, window control button positions and sizes, scrollbar arrow positions.
-- The website mode toggle reads from URL param + localStorage per ARCHITECTURE.md §state.
+- The website mode toggle reads from URL param + localStorage per ARCHITECTURE.md state.
 - At <768px viewport, website mode is forced on and the toggle is hidden.
 
 PART 1 — Zustand window store
 Install zustand. Build `lib/useWindowManager.ts`:
-The `WindowState` type and `WindowManagerStore` interface match ARCHITECTURE.md §window-data-model
-and §window-manager-contract exactly. Actions: focusWindow, moveWindow, resizeWindow,
+The `WindowState` type and `WindowManagerStore` interface match ARCHITECTURE.md window-data-model
+and window-manager-contract exactly. Actions: focusWindow, moveWindow, resizeWindow,
 minimizeWindow, restoreWindow, openWindow, closeWindow. Z-index strategy: monotonically
-incrementing counter (ARCHITECTURE.md §z-index-strategy). Persist to sessionStorage
-(not localStorage — ARCHITECTURE.md §state-architecture).
+incrementing counter (ARCHITECTURE.md z-index-strategy). Persist to sessionStorage
+(not localStorage — ARCHITECTURE.md state-architecture).
 Build `lib/windows.ts`: default layout constants (positions + sizes) for two breakpoints
 (≥1024px, 768–1023px). Define the window IDs: "about", "demo", "features", "docs".
 
@@ -244,9 +244,9 @@ Render: title bar (pinstripes via CSS repeating-linear-gradient, title text, squ
 close/zoom/collapse buttons per MACOS9_REFERENCE.md), content area, resize handle.
 Drag: pointer events on the title bar (onPointerDown → document onPointerMove/onPointerUp).
 Use `transform: translate()` for position — never `top`/`left` during drag.
-Boundary constraints: clamp so title bar stays in viewport (ARCHITECTURE.md §boundary-constraints).
+Boundary constraints: clamp so title bar stays in viewport (ARCHITECTURE.md boundary-constraints).
 Scrollbar: build `components/ui/ScrollArea.tsx` with arrows at BOTH ends of the track
-(ARCHITECTURE.md §scrollbars — do NOT use CSS scrollbar-* APIs, they cannot produce this layout).
+(ARCHITECTURE.md scrollbars — do NOT use CSS scrollbar-* APIs, they cannot produce this layout).
 
 PART 3 — Desktop, MenuBar, Trash
 Build `components/desktop/Desktop.tsx`: desktop background, MenuBar at top, Trash bottom-right,
@@ -266,7 +266,7 @@ SUCCESS CONDITIONS:
 2. Four empty windows ("about", "demo", "features", "docs") appear at their default positions.
 3. Dragging a window's title bar moves it smoothly. Clicking any window brings it to front.
    Two windows can be dragged to overlap; z-index stacking is correct.
-4. Window chrome passes the MACOS9_REFERENCE.md §easy-tells checklist — specifically:
+4. Window chrome passes the MACOS9_REFERENCE.md easy-tells checklist — specifically:
    scrollbar arrows appear at BOTH top AND bottom of the vertical track; window control
    buttons are square, not round; title bar pinstripes render.
 5. Refreshing the page restores the last window positions (sessionStorage).
@@ -288,31 +288,31 @@ SUCCESS CONDITIONS:
 [Full prompt written after Sessions 3 and 4 complete. The outline below is fixed.]
 
 Read CLAUDE.md and docs/reference/CLAUDE.md.
-Read docs/reference/ARCHITECTURE.md §copy-data-layer.
+Read docs/reference/ARCHITECTURE.md copy-data-layer.
 Read docs/reference/COPY.md in full.
 Create a new git branch named feat/session-05-homepage-content.
 
 CONTEXT (session 5 of N):
 - The desktop shell exists (Session 4): four empty windows, window manager, mode toggle.
 - COPY.md has all section IDs and final copy (Session 3).
-- The copy data layer (ARCHITECTURE.md §copy): translate COPY.md into `lib/copy.ts` as
+- The copy data layer (ARCHITECTURE.md copy): translate COPY.md into `lib/copy.ts` as
   a typed `as const` object — never hard-code strings in components.
 
 PART 1 — Write lib/copy.ts
-Translate every §section-id in COPY.md to a key in `lib/copy.ts` as `as const`.
+Translate every section-id in COPY.md to a key in `lib/copy.ts` as `as const`.
 Format: `export const copy = { "hero-headline": "...", ... } as const;`
 Export `CopyKey = keyof typeof copy` for use in components.
-Every key must match a §section-id in COPY.md exactly.
+Every key must match a section-id in COPY.md exactly.
 
 PART 2 — Populate window content components
 Build each window's content component (AboutWindow, FeaturesWindow, DocsWindow) using
-copy["§section-id"] — no hard-coded strings. Mount them inside the Window chrome from Session 4.
+copy["section-id"] — no hard-coded strings. Mount them inside the Window chrome from Session 4.
 
 PART 3 — Website mode content
 Populate WebsiteLayout with the website-mode copy sections. Same lib/copy.ts source.
 
 SUCCESS CONDITIONS:
-1. `lib/copy.ts` exists, is typed `as const`, and has a key for every §section-id in COPY.md.
+1. `lib/copy.ts` exists, is typed `as const`, and has a key for every section-id in COPY.md.
 2. `grep -r "\"[A-Z]" components/` returns no hard-coded copy strings in components
    (all strings come from lib/copy.ts).
 3. Every window shows content matching its COPY.md sections.
@@ -332,20 +332,20 @@ SUCCESS CONDITIONS:
 
 ```
 Read CLAUDE.md and docs/reference/CLAUDE.md.
-Read docs/reference/ARCHITECTURE.md §demo-system-architecture in full — the DemoStep
+Read docs/reference/ARCHITECTURE.md demo-system-architecture in full — the DemoStep
   type, DemoPlayer state machine, coordinate system, ghost cursor constraints.
-Read docs/reference/COPY.md for the demo script content (§demo-* sections).
+Read docs/reference/COPY.md for the demo script content (demo-* sections).
 Create a new git branch named feat/session-06-demo-window.
 
 CONTEXT (session 6 of N):
 - The desktop with content windows exists (Session 5).
-- The demo system architecture is fully specified in ARCHITECTURE.md §demo-system-architecture.
+- The demo system architecture is fully specified in ARCHITECTURE.md demo-system-architecture.
   Follow it exactly: DemoStep union type, requestAnimationFrame player, window-relative coords.
-- The demo script content (the specific sequence of steps) comes from COPY.md §demo-* sections.
+- The demo script content (the specific sequence of steps) comes from COPY.md demo-* sections.
 
 PART 1 — DemoScript.ts
 Build `components/demo/DemoScript.ts` with the DemoStep type from ARCHITECTURE.md.
-Write the DEMO_SCRIPT array from COPY.md §demo-* sections.
+Write the DEMO_SCRIPT array from COPY.md demo-* sections.
 
 PART 2 — GhostCursor and SpeechBubble
 Build `components/demo/GhostCursor.tsx`: a glowing blue (#378ADD) triangle cursor that

@@ -43,7 +43,7 @@ SUCCESS CONDITIONS:
 
 **PART breakdowns:** Split the work into named PARTS. Each PART is a coherent chunk that can be reviewed independently. Typically 2–4 PARTs per session.
 
-**Success conditions:** Numbered. Each one is verifiable in isolation — not "the page looks good" but "the window chrome matches MACOS9_REFERENCE.md §title-bar" or "`COPY.md §hero-headline` is rendered at the correct type scale." State what to check and what "passing" looks like.
+**Success conditions:** Numbered. Each one is verifiable in isolation — not "the page looks good" but "the window chrome matches MACOS9_REFERENCE.md title-bar" or "`COPY.md hero-headline` is rendered at the correct type scale." State what to check and what "passing" looks like.
 
 **Self-contained context:** Every session prompt includes enough context to orient a fresh Claude Code session. Reference specific file paths and section IDs. Never write "as discussed earlier."
 
