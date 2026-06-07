@@ -4,7 +4,7 @@
 
 ---
 
-## §pitch
+## pitch
 
 **"Familiar is a Mac assistant that keeps a running memory of your screen — and can step in to handle tasks for you, or walk you through them click by click."**
 
@@ -15,7 +15,7 @@
 
 ---
 
-## §audience
+## audience
 
 ### Primary
 Knowledge workers and independent professionals (researchers, consultants, designers, engineers, solopreneurs) who spend hours a day on their Mac doing substantive work. They accumulate context across sessions — tabs, documents, apps, notes — and lose track of it. They also encounter tools outside their expertise, and tasks tedious enough to delegate if they could.
@@ -31,7 +31,7 @@ Age skew: 25–45. Comfortable with their Mac. Willing to give a menu-bar app sc
 
 ---
 
-## §use-cases
+## use-cases
 
 Each names a real app or situation. These are the homepage scenarios, ordered to show all three capabilities.
 
@@ -49,7 +49,7 @@ Each names a real app or situation. These are the homepage scenarios, ordered to
 
 ---
 
-## §voice
+## voice
 
 **The register:** Direct, precise, warm without being cute. Treats the reader as a capable adult. A skilled friend sitting next to you at the keyboard — they say "click that blue button," not "navigate to the relevant interface element." Quick, unhedged, quietly confident.
 
@@ -103,7 +103,7 @@ Rules: specific, honest, never blames the user. Privacy stops are features, not 
 
 ---
 
-## §forbidden-phrases
+## forbidden-phrases
 
 Do not use these anywhere — copy, UI labels, error messages, alt text.
 
@@ -124,7 +124,7 @@ Do not use these anywhere — copy, UI labels, error messages, alt text.
 
 ---
 
-## §value-props
+## value-props
 
 Priority order. These become the homepage sections.
 

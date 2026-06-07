@@ -56,7 +56,7 @@ PostHog has a hedgehog mascot. Familiar has no mascot at launch (DECISIONS.md). 
 `banner-tip-hedgehog`, hedgehog illustrations, any PostHog-specific named entities. These are PostHog's brand, not ours. Strip them before using any structural reference.
 
 ### Their specific "startup energy" voice
-PostHog's copy has a specific irreverent, "we're a startup and proud of it" energy that fits their brand. Familiar's voice is warmer, more personal, more "the Mac feels alive again" — closer to how Apple wrote in the late 90s than how modern SaaS companies write. See POSITIONING.md §voice once that's written.
+PostHog's copy has a specific irreverent, "we're a startup and proud of it" energy that fits their brand. Familiar's voice is warmer, more personal, more "the Mac feels alive again" — closer to how Apple wrote in the late 90s than how modern SaaS companies write. See POSITIONING.md voice once that's written.
 
 ---
 

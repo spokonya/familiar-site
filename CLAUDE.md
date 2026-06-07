@@ -4,7 +4,7 @@
 The marketing and product website for Familiar (a Mac-native ambient agent). Separate repo from the product itself. The site is a Mac OS 9 desktop metaphor — visitors land on a Platinum-chrome desktop with draggable windows, a working "website mode" toggle, and a fake-but-scripted Familiar demo running in one of the windows.
 
 ## Stack
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **UI:** React 19 + Tailwind v4 + TypeScript
 - **Deploy:** Vercel
 - **Dev server:** `npm run dev` (http://localhost:3000)
@@ -18,7 +18,7 @@ Session prompts specify which docs to read. The non-negotiable ones:
 - `docs/reference/POSITIONING.md` — voice, forbidden phrases, value props (output of Session 1)
 - `docs/reference/BRAND.md` — palette, type, Mac OS 9 rules (output of Session 2)
 - `docs/reference/MACOS9_REFERENCE.md` — specific Platinum UI details (output of Session 2)
-- `docs/reference/COPY.md` — all on-page copy indexed by §section-id (output of Session 3)
+- `docs/reference/COPY.md` — all on-page copy indexed by section ID (output of Session 3)
 - `docs/reference/FAMILIAR_MODES.md` — Guide/Agent/Chat reference for copy sessions
 
 Standing orders are in `docs/reference/CLAUDE.md` — read that at the start of every session.
@@ -49,7 +49,7 @@ skills/                — session skill files (accumulate over time)
 ## Session status
 - [x] Session 0 — Repo init + reference docs
 - [x] Session 1 — Positioning → `POSITIONING.md`
-- [ ] Session 2 — Brand foundation → `BRAND.md` + `MACOS9_REFERENCE.md` + Tailwind tokens
+- [x] Session 2 — Brand foundation → `BRAND.md` + `MACOS9_REFERENCE.md` + Tailwind tokens
 - [ ] Session 3 — Homepage copy → `COPY.md` (first chunk)
 - [ ] Session 4+ — Implementation
 
