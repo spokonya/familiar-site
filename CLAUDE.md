@@ -52,7 +52,9 @@ skills/                — session skill files (accumulate over time)
 - [x] Session 2 — Brand foundation → `BRAND.md` + `MACOS9_REFERENCE.md` + Tailwind tokens
 - [x] Session 3 — Homepage copy → `COPY.md`
 - [x] Session 4 — Mac OS 9 desktop shell (window manager, chrome, mode toggle)
-- [ ] Session 5+ — Implementation (content, demo, polish)
+- [x] Session 5 — Homepage content (lib/copy.ts, window content, website mode)
+- [ ] Session 6 — Fake Familiar demo
+- [ ] Session 7 — Polish, performance, launch readiness
 
 ## Notes
 - The product repo (`familiar/`) is a separate codebase. Sync `FAMILIAR_README.md` periodically by copying from the product's `readme.md`.
