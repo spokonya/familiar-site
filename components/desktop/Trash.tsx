@@ -4,6 +4,9 @@
 // Spec: MACOS9_REFERENCE.md trash.
 
 import { useState } from "react";
+import { copy } from "@/lib/copy";
+import { TRASH_BANDS_PATH, TRASH_CAN_PATH, TRASH_RIBS_PATH } from "@/lib/icons";
+import { ariaLabels, CHROME_FONT_VAR } from "@/lib/uiLabels";
 
 export function Trash() {
   const [hover, setHover] = useState(false);
@@ -22,25 +25,25 @@ export function Trash() {
         transition: "transform 120ms cubic-bezier(0.32,0.72,0,1)",
       }}
     >
-      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden role="img">
+      <svg width="32" height="32" viewBox="0 0 32 32" role="img" aria-label={ariaLabels.trashIcon}>
         {/* lid */}
         <rect x="7" y="5" width="18" height="3" rx="1" fill="#C8C8C8" stroke="#5A5A5A" strokeWidth="1" />
         <rect x="13" y="3" width="6" height="2" rx="1" fill="#C8C8C8" stroke="#5A5A5A" strokeWidth="1" />
         {/* can body — wire-mesh wastebasket */}
-        <path d="M9 9 L11 28 L21 28 L23 9 Z" fill="#D8D8D8" stroke="#5A5A5A" strokeWidth="1" />
-        <path d="M12 11 L12 26 M16 11 L16 26 M20 11 L20 26" stroke="#9A9A9A" strokeWidth="1" />
-        <path d="M10.4 15 L21.6 15 M10.8 20 L21.2 20" stroke="#9A9A9A" strokeWidth="1" />
+        <path d={TRASH_CAN_PATH} fill="#D8D8D8" stroke="#5A5A5A" strokeWidth="1" />
+        <path d={TRASH_RIBS_PATH} stroke="#9A9A9A" strokeWidth="1" />
+        <path d={TRASH_BANDS_PATH} stroke="#9A9A9A" strokeWidth="1" />
       </svg>
       <span
         style={{
           marginTop: 2,
-          fontFamily: '"Chicago", "Charcoal", ui-sans-serif, -apple-system, system-ui, sans-serif',
+          fontFamily: CHROME_FONT_VAR,
           fontSize: 11,
           color: "#FFFFFF",
           textShadow: "0 1px 1px rgba(0,0,0,0.4)",
         }}
       >
-        Trash {/* COPY.md chrome-trash-label */}
+        {copy["chrome-trash-label"]}
       </span>
     </div>
   );

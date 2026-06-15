@@ -8,6 +8,7 @@
 // is synced to scrollTop. Arrows and the thumb scroll programmatically.
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ariaLabels } from "@/lib/uiLabels";
 
 const BAR = 16; // scrollbar width (px)
 const ARROW = 16; // arrow button height (px)
@@ -137,7 +138,7 @@ function ArrowButton({
     <button
       type="button"
       onClick={onClick}
-      aria-label={dir === "up" ? "Scroll up" : "Scroll down"}
+      aria-label={dir === "up" ? ariaLabels.scrollUp : ariaLabels.scrollDown}
       className="flex shrink-0 items-center justify-center active:brightness-90"
       style={{
         width: ARROW,

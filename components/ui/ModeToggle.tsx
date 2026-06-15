@@ -1,11 +1,10 @@
 "use client";
 
-// "Switch to website mode" / "Back to the desktop" toggle.
+// Desktop/website mode toggle button.
 // Presentational — mode state lives in lib/useMode.ts, lifted to app/page.tsx.
 // Copy: COPY.md mode-toggle-to-website / mode-toggle-to-desktop.
 
-const CHROME_FONT =
-  '"Chicago", "Charcoal", ui-sans-serif, -apple-system, system-ui, sans-serif';
+import { CHROME_FONT_VAR } from "@/lib/uiLabels";
 
 export function ModeToggle({
   label,
@@ -33,7 +32,7 @@ export function ModeToggle({
 }
 
 const buttonStyle: React.CSSProperties = {
-  fontFamily: CHROME_FONT,
+  fontFamily: CHROME_FONT_VAR,
   fontSize: 12,
   fontWeight: 700,
   padding: "4px 12px",

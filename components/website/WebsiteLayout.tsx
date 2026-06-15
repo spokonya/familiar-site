@@ -1,23 +1,28 @@
 "use client";
 
-// Conventional "website mode" layout — empty shell for Session 4.
-// Content sections are populated in Session 5 from lib/copy.ts (website-mode-*).
+// Conventional "website mode" layout. Same content as the desktop, linear:
+// hero → memory → Agent → Guide → privacy → plans → bottom CTA.
+// Copy comes from lib/copy.ts; sections live in components/website/*.
 // Spec: ARCHITECTURE.md mental-model (website mode) + responsive-strategy.
 
 import { ModeToggle } from "@/components/ui/ModeToggle";
+import { CTASection } from "@/components/website/CTASection";
+import { FeaturesSection } from "@/components/website/FeaturesSection";
+import { HeroSection } from "@/components/website/HeroSection";
+import { copy } from "@/lib/copy";
 
 export function WebsiteLayout({
   onSwitchToDesktop,
   showToggle,
-  mobileBanner,
+  showMobileBanner = false,
 }: {
   onSwitchToDesktop: () => void;
   showToggle: boolean;
-  mobileBanner?: string;
+  showMobileBanner?: boolean;
 }) {
   return (
     <div className="min-h-screen w-full" style={{ background: "var(--color-bg-subtle)" }}>
-      {mobileBanner && (
+      {showMobileBanner && (
         <div
           className="w-full px-4 py-2 text-center"
           style={{
@@ -27,7 +32,7 @@ export function WebsiteLayout({
             borderBottom: "1px solid var(--color-accent-border)",
           }}
         >
-          {mobileBanner}
+          {copy["mode-banner-mobile"]}
         </div>
       )}
 
@@ -40,14 +45,15 @@ export function WebsiteLayout({
           background: "var(--color-bg)",
         }}
       >
-        <span style={{ fontWeight: 600, fontSize: 18 }}>Familiar</span>
+        <span style={{ fontWeight: 600, fontSize: 18 }}>{copy["chrome-app-name"]}</span>
         {showToggle && (
-          <ModeToggle label="Back to the desktop" onToggle={onSwitchToDesktop} fixed={false} />
+          <ModeToggle label={copy["mode-toggle-to-desktop"]} onToggle={onSwitchToDesktop} fixed={false} />
         )}
       </header>
 
-      {/* Empty content shell — populated in Session 5. */}
-      <main className="mx-auto w-full max-w-5xl px-6 py-16" />
+      <HeroSection />
+      <FeaturesSection />
+      <CTASection />
     </div>
   );
 }

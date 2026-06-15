@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { useWindowManager } from "@/lib/useWindowManager";
 import { MIN_WINDOW_SIZE, type WindowId } from "@/lib/windows";
 import { ScrollArea } from "@/components/ui/ScrollArea";
+import { ariaLabels, CHROME_FONT_VAR } from "@/lib/uiLabels";
 
 const TITLE_BAR_H = 22;
 
@@ -134,15 +135,15 @@ export function Window({ id, title, children, draggable = true, scrollable = tru
         }}
       >
         {/* Close (left) */}
-        <ControlButton glyph="×" active={isFocused} left={6} onClick={() => closeWindow(id)} label="Close" />
+        <ControlButton glyph="×" active={isFocused} left={6} onClick={() => closeWindow(id)} label={ariaLabels.close} />
         {/* Collapse + Zoom (right) */}
-        <ControlButton glyph="–" active={isFocused} right={23} onClick={toggleCollapse} label="Collapse" />
-        <ControlButton glyph="+" active={isFocused} right={6} onClick={toggleZoom} label="Zoom" />
+        <ControlButton glyph="–" active={isFocused} right={23} onClick={toggleCollapse} label={ariaLabels.collapse} />
+        <ControlButton glyph="+" active={isFocused} right={6} onClick={toggleZoom} label={ariaLabels.zoom} />
 
         <span
           className="pointer-events-none absolute inset-x-0 text-center"
           style={{
-            fontFamily: '"Chicago", "Charcoal", ui-sans-serif, -apple-system, system-ui, sans-serif',
+            fontFamily: CHROME_FONT_VAR,
             fontSize: 12,
             fontWeight: 700,
             paddingInline: 32,

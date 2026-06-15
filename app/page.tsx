@@ -21,11 +21,7 @@ export default function Home() {
       <WebsiteLayout
         onSwitchToDesktop={() => setMode("desktop")}
         showToggle={!isMobile}
-        mobileBanner={
-          isMobile
-            ? "The desktop works best on a bigger screen. Here's the short version." // COPY.md mode-banner-mobile
-            : undefined
-        }
+        showMobileBanner={isMobile}
       />
     );
   }

@@ -9,8 +9,21 @@ import { MenuBar } from "@/components/desktop/MenuBar";
 import { Trash } from "@/components/desktop/Trash";
 import { Window } from "@/components/desktop/Window";
 import { ModeToggle } from "@/components/ui/ModeToggle";
+import { AboutWindow } from "@/components/windows/AboutWindow";
+import { DemoWindow } from "@/components/windows/DemoWindow";
+import { FeaturesWindow } from "@/components/windows/FeaturesWindow";
+import { DocsWindow } from "@/components/windows/DocsWindow";
+import { copy } from "@/lib/copy";
 import { useWindowManager } from "@/lib/useWindowManager";
-import { WINDOW_IDS, WINDOW_TITLES } from "@/lib/windows";
+import { WINDOW_IDS, WINDOW_TITLES, type WindowId } from "@/lib/windows";
+
+// Each window's content component + whether it scrolls (the demo is a stage).
+const WINDOW_CONTENT: Record<WindowId, { Content: React.ComponentType; scrollable: boolean }> = {
+  about: { Content: AboutWindow, scrollable: true },
+  demo: { Content: DemoWindow, scrollable: false },
+  features: { Content: FeaturesWindow, scrollable: true },
+  docs: { Content: DocsWindow, scrollable: true },
+};
 
 export function Desktop({
   draggable,
@@ -48,34 +61,19 @@ export function Desktop({
       }}
     >
       <MenuBar />
-      <ModeToggle label="Switch to website mode" onToggle={onSwitchToWebsite} />
+      <ModeToggle label={copy["mode-toggle-to-website"]} onToggle={onSwitchToWebsite} />
 
       {ready &&
-        WINDOW_IDS.map((id) => (
-          <Window key={id} id={id} title={WINDOW_TITLES[id]} draggable={draggable}>
-            <PlaceholderContent />
-          </Window>
-        ))}
+        WINDOW_IDS.map((id) => {
+          const { Content, scrollable } = WINDOW_CONTENT[id];
+          return (
+            <Window key={id} id={id} title={WINDOW_TITLES[id]} draggable={draggable} scrollable={scrollable}>
+              <Content />
+            </Window>
+          );
+        })}
 
       <Trash />
-    </div>
-  );
-}
-
-// Visual-only placeholder skeleton — NOT copy. Real content arrives in Session 5
-// from lib/copy.ts. Tall enough to exercise the scrollbar in smaller windows.
-function PlaceholderContent() {
-  const widths = ["92%", "78%", "85%", "60%", "88%", "70%", "95%", "66%", "82%", "74%", "90%", "58%"];
-  return (
-    <div className="flex flex-col gap-3" aria-hidden>
-      <div style={{ height: 22, width: "55%", background: "var(--color-border)", borderRadius: 2 }} />
-      <div style={{ height: 12 }} />
-      {widths.map((w, i) => (
-        <div
-          key={i}
-          style={{ height: 12, width: w, background: "var(--color-border-subtle)", borderRadius: 2 }}
-        />
-      ))}
     </div>
   );
 }

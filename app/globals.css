@@ -26,6 +26,11 @@
     #B8B8B8 0px, #B8B8B8 1px,
     #D8D8D8 1px, #D8D8D8 2px
   );
+
+  /* Mac OS 9 chrome typeface stack (MACOS9_REFERENCE.md typography).
+     Kept here so chrome components reference var(--font-chrome) rather than
+     embedding the font string. */
+  --font-chrome: "Chicago", "Charcoal", ui-sans-serif, -apple-system, system-ui, sans-serif;
 }
 
 /* ─── Content layer tokens ────────────────────────────────────────────────
