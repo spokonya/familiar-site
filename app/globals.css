@@ -78,3 +78,15 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
+
+/* Hide the native scrollbar inside <ScrollArea> — the Platinum scrollbar is
+   drawn as a custom overlay (MACOS9_REFERENCE.md scrollbars). */
+.hide-native-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge */
+}
+.hide-native-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
