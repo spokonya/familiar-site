@@ -92,6 +92,13 @@ export const copy = {
   "demo-step-fill": `Portland, leaving Friday — filling it in.`,
   "demo-step-search": `Searching for flights.`,
   "demo-step-approve": `I'll stop here so you can approve the payment.`,
+
+  // ── desktop icon labels (PROPOSAL — COPY.md PART 6, pending copy-session sign-off) ──
+  "icon-label-about": `Familiar`,
+  "icon-label-demo": `Live Demo`,
+  "icon-label-features": `Features`,
+  "icon-label-docs": `Read Me`,
+  "icon-label-hd": `Macintosh HD`,
 } as const;
 
 export type CopyKey = keyof typeof copy;

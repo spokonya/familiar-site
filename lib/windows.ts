@@ -61,6 +61,24 @@ const WINDOW_FLAGS: Record<WindowId, { isCloseable: boolean; isResizable: boolea
 // Mac OS 9 minimum window size (MACOS9_REFERENCE.md minimum-window-sizes).
 export const MIN_WINDOW_SIZE = { width: 128, height: 64 } as const;
 
+// Desktop launcher-icon positions per breakpoint (MACOS9_REFERENCE.md icon-grid,
+// 64×64 snap grid). Down the left edge, below the 22px menu bar. The Macintosh HD
+// icon is pinned top-right in the component, not on this grid.
+export const DESKTOP_ICON_LAYOUT: Record<"desktop" | "tablet", Record<WindowId, { x: number; y: number }>> = {
+  desktop: {
+    about: { x: 24, y: 40 },
+    demo: { x: 24, y: 132 },
+    features: { x: 24, y: 224 },
+    docs: { x: 24, y: 316 },
+  },
+  tablet: {
+    about: { x: 16, y: 36 },
+    demo: { x: 16, y: 124 },
+    features: { x: 16, y: 212 },
+    docs: { x: 16, y: 300 },
+  },
+};
+
 export function buildDefaultWindows(
   breakpoint: "desktop" | "tablet",
 ): Record<WindowId, WindowState> {

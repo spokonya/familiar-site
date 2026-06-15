@@ -4,6 +4,16 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — Desktop icons are the window reopen mechanism; HD opens About
+
+Each window has a desktop launcher icon; double-clicking it calls `openWindow(id)`. This is now the canonical way to reopen a window after it has been closed — previously there was no affordance and a closed window was gone for the session. The Macintosh HD icon double-clicks to `openWindow("about")` rather than being inert.
+
+**Why:** Closing a window used to be a dead end. Desktop icons are the natural OS 9 place to "relaunch," so they double as the reopen path — no extra UI needed. Wiring HD to the About window keeps it from being a dead icon while a richer "About This Computer" lands in Session 8 (Apple menu).
+
+**Alternatives considered:** a Window menu listing closed windows (rejected — the menu bar isn't functional until Session 8, and icons are more on-theme); leaving HD purely decorative (rejected — an inert icon invites clicks that do nothing).
+
+---
+
 ## 2026-06-15 — Window control glyphs are hover-only (intentional, not a bug)
 
 The close / collapse / zoom buttons in a window title bar render as empty Platinum squares and only show their ×/–/+ glyph on hover. This looks like a missing-icon bug but is deliberate: it matches MACOS9_REFERENCE.md window-controls (glyph "none" by default, glyph on hover) and real Mac OS 9 behavior. The user reviewed this and chose to keep the authentic hover-only treatment over always-visible glyphs.
