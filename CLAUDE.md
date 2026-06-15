@@ -54,7 +54,10 @@ skills/                — session skill files (accumulate over time)
 - [x] Session 4 — Mac OS 9 desktop shell (window manager, chrome, mode toggle)
 - [x] Session 5 — Homepage content (lib/copy.ts, window content, website mode)
 - [x] Session 6 — Fake Familiar demo (scripted ghost-cursor autoplay)
-- [ ] Session 7 — Polish, performance, launch readiness
+- [ ] Session 7 — Desktop icons & desktop surface
+- [ ] Session 8 — Functional menu bar & dialogs
+- [ ] Session 9 — Stickies & personality pass
+- [ ] Session 10 — Polish, performance, launch readiness
 
 ## Notes
 - The product repo (`familiar/`) is a separate codebase. Sync `FAMILIAR_README.md` periodically by copying from the product's `readme.md`.

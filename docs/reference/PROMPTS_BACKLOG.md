@@ -380,10 +380,178 @@ SUCCESS CONDITIONS:
 
 ---
 
-## SESSION 7 — Polish, Performance, Launch Readiness
-**Branch:** `feat/session-07-polish`
-**Output:** Vercel deployment live, performance passing, accessibility baseline, SEO metadata
+## SESSION 7 — Desktop Icons & Desktop Surface
+**Branch:** `feat/session-07-desktop-icons`
+**Output:** Desktop document icons that open/reopen windows, Macintosh HD icon, classic desktop pattern
 **Depends on:** Session 6 (demo working)
+
+**Goal:** Put icons on the desktop. Each window gets a document icon that opens (and reopens) it — closing the current no-way-to-reopen-a-closed-window gap — plus the iconic Macintosh HD in the top-right and a quiet classic desktop pattern. This is the main cure for "the desktop feels bare."
+
+```
+Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/ARCHITECTURE.md — component-architecture (note the planned, never-built
+  components/desktop/DesktopIcon.tsx) and window-manager-contract (openWindow reopens + focuses).
+Read docs/reference/MACOS9_REFERENCE.md — desktop, desktop-icons, icon-grid, trash.
+Read docs/reference/BRAND.md icon-style (desktop icons 32×32; app icon uses ghost-cursor blue).
+Read docs/reference/COPY.md for window titles and the copy-by-section-id rule.
+Create a new git branch named feat/session-07-desktop-icons.
+
+CONTEXT (session 7 of 10 — desktop personality phase, no launch work yet):
+- Sessions 0–6 are merged to main. Desktop, windows, both modes, and the demo all work.
+- Closed windows currently CANNOT be reopened — there is no affordance. The store already has
+  openWindow(id) (reopens if closed, restores if minimized, focuses). Desktop icons become the
+  canonical reopen path.
+- ARCHITECTURE.md lists DesktopIcon.tsx (never built); MACOS9_REFERENCE.md desktop-icons +
+  icon-grid give the visual spec and the 64×64 snap grid. Trash already exists bottom-right.
+- New on-screen labels are copy: add any to COPY.md PART 6 as a PROPOSAL (pending copy-session
+  sign-off) and reference by section-id — never hard-code strings in components.
+
+PART 1 — DesktopIcon component
+Build components/desktop/DesktopIcon.tsx per MACOS9_REFERENCE.md desktop-icons: 32×32 art,
+48px hit zone, 11px white label centered below (ellipsis ~12 chars), selected state (#378ADD
+label background + blue icon tint). Single-click selects; double-click (or Enter when focused)
+activates via an onOpen callback. Document-style icon art for content windows; the Familiar
+app icon uses the ghost-cursor blue (BRAND.md icon-style).
+
+PART 2 — Window launcher icons + reopen
+Render a labeled desktop icon for each window (about, demo, features, docs). Double-click →
+openWindow(id) — this is how a closed window is reopened. Define icon positions per breakpoint
+in lib/windows.ts (64×64 grid down the left edge), not hard-coded in the component. Clicking an
+icon selects it; clicking empty desktop deselects.
+
+PART 3 — Macintosh HD + desktop pattern
+Add a "Macintosh HD" hard-drive icon pinned top-right, just under the menu bar (classic OS 9
+placement). Decorative is fine, or have it open the about window — note the choice. Replace the
+flat desktop with a subtle classic Platinum desktop pattern; keep it quiet (BRAND.md: windows
+are the focus; no animated gradients).
+
+SUCCESS CONDITIONS:
+1. Each of the four windows has a labeled desktop icon; double-clicking it opens/focuses that window.
+2. Closing a window, then double-clicking its desktop icon, reopens it (the reopen gap is closed).
+3. Desktop icons match MACOS9_REFERENCE.md desktop-icons: 32×32 art, 11px white label, blue selected state.
+4. A "Macintosh HD" icon is pinned in the top-right corner under the menu bar.
+5. Single-click selects an icon (blue highlight); clicking the empty desktop deselects.
+6. Icon positions come from lib/windows.ts per breakpoint, not hard-coded in the component.
+7. Any new icon-label copy is referenced from lib/copy.ts (added to COPY.md PART 6 as PROPOSAL).
+8. `npm run typecheck` and `npm run build` pass clean.
+```
+
+---
+
+## SESSION 8 — Functional Menu Bar & Dialogs
+**Branch:** `feat/session-08-menus-dialogs`
+**Output:** Working Apple/File/Help dropdowns, an "About This Computer" dialog, a Familiar status item
+**Depends on:** Session 7 (desktop icons)
+
+**Goal:** Make the menu bar do something — real Platinum dropdowns that open windows, toggle website mode, and show an on-theme "About This Computer" dialog — plus a small "Familiar is watching" status item that ties the desktop back to the real product. Polished, not gimmicky.
+
+```
+Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/MACOS9_REFERENCE.md — menu-bar, dropdown-menus, dialog-boxes, default-button.
+Read docs/reference/ARCHITECTURE.md — window-manager-contract and state-architecture (mode).
+Read docs/reference/COPY.md (menu-apple-about is unused) and POSITIONING.md voice (for the About box).
+Create a new git branch named feat/session-08-menus-dialogs.
+
+CONTEXT (session 8 of 10 — desktop personality phase):
+- Sessions 0–7 are merged. The menu bar (Apple / Familiar / File / Help + clock) renders but the
+  menus do nothing on click. Session 7 added desktop launcher icons.
+- MACOS9_REFERENCE.md dropdown-menus + dialog-boxes fully specify the chrome. menu-apple-about
+  ("About This Desktop") copy exists but is unused. The store exposes openWindow/closeWindow;
+  mode lives in useMode.
+- New menu-item / dialog copy goes in COPY.md PART 6 as a PROPOSAL; reference by section-id.
+
+PART 1 — DialogBox primitive
+Build components/desktop/DialogBox.tsx per MACOS9_REFERENCE.md dialog-boxes: Platinum bevel,
+#EEEEEE background, buttons with the pulsing default-button ring (add the platinum-default-pulse
+keyframes to globals.css), Cancel-left / default-right layout. Escape cancels, Return triggers
+the default, focus is trapped while open.
+
+PART 2 — Dropdown menu system
+Make the menu-bar menus open real dropdowns per MACOS9_REFERENCE.md dropdown-menus (white bg,
+1px #808080 border, flat 2px offset shadow, 18px items, 8px padding, #378ADD/white hover,
+1px separators, ✓ checkmark prefix). Click to open; click-away or Escape closes; only one menu
+open at a time; keyboard-navigable (arrows + Enter).
+
+PART 3 — Wire menu actions
+- Apple ▸ About This Desktop (menu-apple-about) → opens an "About This Computer"-style DialogBox
+  with a playful on-theme readout ("Familiar", a version line, a "Built-in Memory" bar) — copy
+  as PROPOSAL, voice per POSITIONING.md.
+- File ▸ Open ▸ (submenu of the windows → openWindow) · Close Window (closeWindow on the focused
+  window) · separator · Switch to Website Mode (useMode), with a ✓ when active.
+- Help ▸ opens the docs window (or a small help dialog).
+
+PART 4 — Familiar status item (product tie-in)
+Add a small right-side menu-bar status item before the clock: the ghost-cursor glyph + a short
+"watching"-style label (COPY.md PROPOSAL). Clicking opens a tiny menu or dialog explaining what
+Familiar actually does — connecting the desktop metaphor to the real product. Decorative but polished.
+
+SUCCESS CONDITIONS:
+1. Clicking Apple / File / Help opens a Platinum dropdown matching MACOS9_REFERENCE.md dropdown-menus
+   (border, flat shadow, hover highlight, separators).
+2. Only one menu is open at a time; click-away or Escape closes it; menus are keyboard-navigable.
+3. File ▸ Open lists the windows and opens/focuses the chosen one; Close Window closes the focused
+   window; Switch to Website Mode toggles mode (with a ✓ when active).
+4. Apple ▸ About This Desktop opens a DialogBox whose default button shows the OS-9 pulse; Escape and
+   Return both dismiss it.
+5. A Familiar status item appears at the right of the menu bar (before the clock) and is interactive.
+6. All new menu/dialog copy is referenced from lib/copy.ts (ids added to COPY.md PART 6 as PROPOSAL);
+   no hard-coded copy strings in components.
+7. `npm run typecheck` and `npm run build` pass clean.
+```
+
+---
+
+## SESSION 9 — Stickies & Personality Pass
+**Branch:** `feat/session-09-stickies`
+**Output:** A draggable Stickies welcome note + final restrained personality touches
+**Depends on:** Session 8 (menus & dialogs)
+
+**Goal:** Add warmth and voice. A classic yellow Stickies note welcomes first-time visitors in Familiar's voice, plus a few quiet, on-theme details — the last personality pass before launch polish. Restrained: no gimmicks, no second brand accent.
+
+```
+Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/MACOS9_REFERENCE.md (window/dialog chrome) and web-adaptation-notes (motion).
+Read docs/reference/BRAND.md palette + layout-and-motion-mistakes (the Stickies yellow is set
+  dressing, NOT a second brand accent — document it; no ambient gradients, snappy cubic-bezier motion).
+Read docs/reference/POSITIONING.md voice (for the sticky copy).
+Create a new git branch named feat/session-09-stickies.
+
+CONTEXT (session 9 of 10 — desktop personality phase, final personality session):
+- Sessions 0–8 are merged. The desktop has launcher icons, the Macintosh HD, working menus, and
+  dialogs. This session adds warmth/voice and any last touches before the launch-polish session.
+- Stickies was a beloved Mac OS 9 app — small draggable pale-yellow notes. The brand accent is
+  #378ADD; the sticky yellow is a deliberate set-dressing exception, to be recorded in DECISIONS.md.
+- Sticky copy goes in COPY.md PART 6 as a PROPOSAL; reference by section-id.
+
+PART 1 — Stickies note
+Build components/desktop/StickyNote.tsx: a pale-yellow draggable note with a short first-visit
+welcome/tip in Familiar's voice (COPY.md PROPOSAL, e.g. sticky-welcome). Classic Stickies look —
+thin chrome, small close box, hard 2px shadow. Draggable (reuse the Window drag pattern) and
+dismissible; dismissal persists in sessionStorage (consistent with window state).
+
+PART 2 — Personality touches (restrained)
+A small, tasteful set of on-theme details — pick what genuinely lands, don't pad:
+- render chrome-desktop-hint as a dismissible first-visit hint (if Session 7 didn't already);
+- an optional subtle window-open zoom-rect effect (MACOS9_REFERENCE.md web-adaptation-notes);
+- at most one quiet easter egg. No gimmicks, no second accent, no ambient gradients (BRAND.md do-not).
+
+SUCCESS CONDITIONS:
+1. A pale-yellow Stickies note renders on the desktop with first-visit copy in Familiar's voice,
+   sourced from lib/copy.ts (id added to COPY.md PART 6 as PROPOSAL).
+2. The sticky is draggable and dismissible; dismissal persists across a refresh (sessionStorage).
+3. The Stickies yellow is recorded in DECISIONS.md as an intentional set-dressing exception to the
+   single-accent rule.
+4. chrome-desktop-hint is rendered somewhere in the app (this session or Session 7).
+5. No second brand accent, no ambient gradient, no gimmicky motion (BRAND.md layout-and-motion-mistakes).
+6. `npm run typecheck` and `npm run build` pass clean.
+```
+
+---
+
+## SESSION 10 — Polish, Performance, Launch Readiness
+**Branch:** `feat/session-10-polish`
+**Output:** Vercel deployment live, performance passing, accessibility baseline, SEO metadata
+**Depends on:** Session 9 (personality pass complete)
 
 **Goal:** Take the functionally-complete site to launch quality — SEO/metadata, an accessibility baseline (focus, keyboard, reduced-motion, alt text), performance (Lighthouse ≥90 desktop, no console errors), and a live Vercel deployment. Wire the last unused copy keys. No new product features.
 
@@ -393,13 +561,14 @@ Read docs/reference/ARCHITECTURE.md — specifically what's-missing-deferred, ro
   responsive-strategy, and performance-considerations.
 Read docs/reference/BRAND.md layout-and-motion-mistakes (cubic-bezier easing, no ambient
   gradients, hard shadows) and MACOS9_REFERENCE.md web-adaptation-notes (motion, retina).
-Read docs/reference/COPY.md — confirm every section-id is rendered somewhere; two are not
-  yet wired (chrome-desktop-hint, menu-apple-about).
-Create a new git branch named feat/session-07-polish.
+Read docs/reference/COPY.md — confirm every section-id (including the PART 5/PART 6 PROPOSAL
+  copy) is rendered somewhere in the app.
+Create a new git branch named feat/session-10-polish.
 
-CONTEXT (session 7 of 7, final session — polish + launch):
-- Sessions 0–6 are merged to main. The Mac OS 9 desktop, both rendering modes, all
-  homepage copy (lib/copy.ts), and the scripted ghost-cursor demo all work.
+CONTEXT (session 10 of 10, final session — polish + launch):
+- Sessions 0–9 are merged to main. The Mac OS 9 desktop, both rendering modes, all homepage
+  copy (lib/copy.ts), the scripted ghost-cursor demo, desktop launcher icons, functional menus
+  and dialogs, and the Stickies note all work.
 - The site is client-heavy by design. SSR of window content is explicitly a post-launch
   concern (ARCHITECTURE.md what's-missing-deferred) — do NOT re-architect for SSR.
 - Motion is everywhere (ghost cursor, window drag, windowshade, bubble streaming). The
@@ -437,10 +606,11 @@ PART 3 — Performance & correctness
   visible CLS, and transforms (not top/left) drive all animation (already true — verify).
 - Set turbopack.root in next.config to silence the multiple-lockfiles warning.
 
-PART 4 — Wire remaining copy + deploy
-- Render the two unused copy keys: chrome-desktop-hint (a dismissible first-visit hint on the
-  desktop) and menu-apple-about (an Apple-menu dropdown item — minimal, decorative is fine).
-  After this, every COPY.md section-id is referenced in the app.
+PART 4 — Copy audit + deploy
+- Audit COPY.md against the app: every section-id (including the PART 5/PART 6 PROPOSAL copy
+  from the demo, icons, menus, and Stickies) must be referenced somewhere in app/ or components/.
+  Fix any stragglers. This is also the moment to confirm with the user whether the accumulated
+  PROPOSAL copy should be promoted to final or left flagged.
 - Deploy to Vercel (link the project if not linked; this step needs the user's Vercel auth).
   Confirm the production URL renders both modes, the demo autoplays, and there are no console
   errors. Verify website mode is forced and usable at a 375px viewport.
@@ -460,8 +630,8 @@ SUCCESS CONDITIONS:
    visible --color-accent focus ring.
 8. The favicon/app icon is the Familiar ghost-cursor blue, not the Next.js default.
 9. app/robots.ts and app/sitemap.ts exist and build.
-10. Every COPY.md section-id is referenced somewhere in app/ or components/ (including
-    chrome-desktop-hint and menu-apple-about).
+10. Every COPY.md section-id is referenced somewhere in app/ or components/ (the PART 5/PART 6
+    PROPOSAL copy included).
 11. next.config sets turbopack.root; `npm run build` emits no multiple-lockfiles warning.
 12. `npm run typecheck` and `npm run build` pass clean.
 ```
