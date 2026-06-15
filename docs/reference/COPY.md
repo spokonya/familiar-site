@@ -343,6 +343,36 @@ body copy is lightly re-set for a scrolling page rather than windows.
 
 ---
 
+## PART 5 — Demo step script (PROPOSAL — Session 6, pending copy-session sign-off)
+
+> **These lines are NOT final copy.** Session 3 deliberately left the demo step
+> script out of scope. They were written in Session 6 so the scripted demo could
+> function, and are flagged here for a future copy session to confirm or revise.
+> They reuse the already-approved Agent scenario (`mode-agent-example`): booking
+> a flight to Portland in Safari. Each is a short ghost-cursor speech bubble.
+
+### demo-step-command
+**Where:** Opening speech bubble — the task the user gives Familiar.
+**Copy:** Book me a flight to Portland, leaving Friday.
+
+### demo-step-open
+**Where:** Bubble as the ghost cursor moves to the address bar.
+**Copy:** Opening the airline site.
+
+### demo-step-fill
+**Where:** Bubble as Familiar fills the form.
+**Copy:** Portland, leaving Friday — filling it in.
+
+### demo-step-search
+**Where:** Bubble as Familiar runs the search.
+**Copy:** Searching for flights.
+
+### demo-step-approve
+**Where:** Final bubble — Familiar stops before the irreversible action.
+**Copy:** I'll stop here so you can approve the payment.
+
+---
+
 ## Section-id index (for `lib/copy.ts` in Session 5)
 
 hero-headline · hero-subhead · hero-cta-primary · hero-cta-secondary ·
