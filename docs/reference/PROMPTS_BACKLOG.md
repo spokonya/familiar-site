@@ -382,18 +382,88 @@ SUCCESS CONDITIONS:
 
 ## SESSION 7 — Polish, Performance, Launch Readiness
 **Branch:** `feat/session-07-polish`
-**Output:** Vercel deployment live, performance passing, accessibility baseline
+**Output:** Vercel deployment live, performance passing, accessibility baseline, SEO metadata
 **Depends on:** Session 6 (demo working)
 
+**Goal:** Take the functionally-complete site to launch quality — SEO/metadata, an accessibility baseline (focus, keyboard, reduced-motion, alt text), performance (Lighthouse ≥90 desktop, no console errors), and a live Vercel deployment. Wire the last unused copy keys. No new product features.
+
 ```
-[Full prompt TBD]
+Read CLAUDE.md and docs/reference/CLAUDE.md.
+Read docs/reference/ARCHITECTURE.md — specifically what's-missing-deferred, routing-strategy,
+  responsive-strategy, and performance-considerations.
+Read docs/reference/BRAND.md layout-and-motion-mistakes (cubic-bezier easing, no ambient
+  gradients, hard shadows) and MACOS9_REFERENCE.md web-adaptation-notes (motion, retina).
+Read docs/reference/COPY.md — confirm every section-id is rendered somewhere; two are not
+  yet wired (chrome-desktop-hint, menu-apple-about).
+Create a new git branch named feat/session-07-polish.
+
+CONTEXT (session 7 of 7, final session — polish + launch):
+- Sessions 0–6 are merged to main. The Mac OS 9 desktop, both rendering modes, all
+  homepage copy (lib/copy.ts), and the scripted ghost-cursor demo all work.
+- The site is client-heavy by design. SSR of window content is explicitly a post-launch
+  concern (ARCHITECTURE.md what's-missing-deferred) — do NOT re-architect for SSR.
+- Motion is everywhere (ghost cursor, window drag, windowshade, bubble streaming). The
+  accessibility gap is real: this session sets a BASELINE, not full WCAG (ARCHITECTURE.md).
+- Known pre-existing issue: a stray ~/package-lock.json makes Next warn about multiple
+  lockfiles — fix by setting turbopack.root in next.config (do NOT delete the user's file).
+- Out of scope: analytics (post-launch, ARCHITECTURE.md); promoting the demo-step-* PROPOSAL
+  copy to final (that is a copy-session decision — leave the PROPOSAL marking intact).
+
+PART 1 — SEO & metadata
+Set per-route metadata via the App Router Metadata API (app/layout.tsx + per-page where
+needed): title, description (from POSITIONING.md pitch / COPY.md, no forbidden phrases),
+openGraph + twitter card, theme-color, and a real favicon/app icon using the ghost-cursor
+blue (#378ADD) — NOT the Next.js default. Add app/robots.ts and app/sitemap.ts.
+Build the /docs route per ARCHITECTURE.md routing-strategy: in website mode it is its own
+crawlable page; in desktop mode, navigating to /docs redirects to / and opens the docs window.
+Reuse docs-placeholder-* copy.
+
+PART 2 — Accessibility baseline
+- Honor prefers-reduced-motion: when set, the demo does NOT autoplay (show the final frame +
+  Replay), window drag/windowshade transitions are reduced, and the ghost-cursor glow/flight
+  is static. Add a single reduced-motion source of truth (e.g. lib/usePrefersReducedMotion.ts).
+- Keyboard + focus: windows are reachable and focusable; Escape or the close control closes a
+  focused closeable window; the focused window's controls are keyboard-operable. Give each
+  Window an appropriate role/aria-label. Add a visible focus ring using --color-accent.
+- Website mode: add a skip-to-content link and ensure heading order is sane (one h1).
+- Confirm every <img>/decorative SVG has alt text or aria-hidden (most SVGs are already
+  aria-hidden or labeled — verify, don't assume).
+
+PART 3 — Performance & correctness
+- Lighthouse ≥90 (performance) on desktop for / . Eliminate any console errors AND warnings
+  on load in both modes. Verify no hydration mismatch warnings (the mounted-gate + clock +
+  sessionStorage rehydrate are the risk areas).
+- Confirm next/font is used (no layout-shift from late fonts), the mounted-gate does not cause
+  visible CLS, and transforms (not top/left) drive all animation (already true — verify).
+- Set turbopack.root in next.config to silence the multiple-lockfiles warning.
+
+PART 4 — Wire remaining copy + deploy
+- Render the two unused copy keys: chrome-desktop-hint (a dismissible first-visit hint on the
+  desktop) and menu-apple-about (an Apple-menu dropdown item — minimal, decorative is fine).
+  After this, every COPY.md section-id is referenced in the app.
+- Deploy to Vercel (link the project if not linked; this step needs the user's Vercel auth).
+  Confirm the production URL renders both modes, the demo autoplays, and there are no console
+  errors. Verify website mode is forced and usable at a 375px viewport.
 
 SUCCESS CONDITIONS:
-1. Vercel deployment live and accessible.
-2. Lighthouse performance score ≥ 90 on desktop.
-3. No console errors on load.
-4. Website mode works at 375px (mobile viewport).
-5. All images have alt text.
+1. Vercel production deployment is live and loads / without error.
+2. Lighthouse performance score ≥ 90 on desktop for the production / route.
+3. Zero console errors AND zero React hydration warnings on load, in BOTH desktop and website
+   mode.
+4. Website mode is forced and fully usable at 375px width; the mobile banner shows; the toggle
+   is hidden.
+5. Every <img> has alt text and every decorative SVG is aria-hidden or aria-labeled
+   (greppable: no <img without alt, no role="img" without aria-label).
+6. With prefers-reduced-motion: reduce set, the demo does not autoplay and no ghost-cursor
+   flight or window transition animates; a Replay control is still present.
+7. A focused closeable window can be closed from the keyboard; the focused window shows a
+   visible --color-accent focus ring.
+8. The favicon/app icon is the Familiar ghost-cursor blue, not the Next.js default.
+9. app/robots.ts and app/sitemap.ts exist and build.
+10. Every COPY.md section-id is referenced somewhere in app/ or components/ (including
+    chrome-desktop-hint and menu-apple-about).
+11. next.config sets turbopack.root; `npm run build` emits no multiple-lockfiles warning.
+12. `npm run typecheck` and `npm run build` pass clean.
 ```
 
 ---
