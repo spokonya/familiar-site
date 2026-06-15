@@ -8,14 +8,15 @@ import { useEffect, useState } from "react";
 import { MenuBar } from "@/components/desktop/MenuBar";
 import { Trash } from "@/components/desktop/Trash";
 import { Window } from "@/components/desktop/Window";
+import { DesktopIcon, type IconVariant } from "@/components/desktop/DesktopIcon";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 import { AboutWindow } from "@/components/windows/AboutWindow";
 import { DemoWindow } from "@/components/windows/DemoWindow";
 import { FeaturesWindow } from "@/components/windows/FeaturesWindow";
 import { DocsWindow } from "@/components/windows/DocsWindow";
-import { copy } from "@/lib/copy";
+import { copy, type CopyKey } from "@/lib/copy";
 import { useWindowManager } from "@/lib/useWindowManager";
-import { WINDOW_IDS, WINDOW_TITLES, type WindowId } from "@/lib/windows";
+import { DESKTOP_ICON_LAYOUT, WINDOW_IDS, WINDOW_TITLES, type WindowId } from "@/lib/windows";
 
 // Each window's content component + whether it scrolls (the demo is a stage).
 const WINDOW_CONTENT: Record<WindowId, { Content: React.ComponentType; scrollable: boolean }> = {
@@ -23,6 +24,14 @@ const WINDOW_CONTENT: Record<WindowId, { Content: React.ComponentType; scrollabl
   demo: { Content: DemoWindow, scrollable: false },
   features: { Content: FeaturesWindow, scrollable: true },
   docs: { Content: DocsWindow, scrollable: true },
+};
+
+// Desktop launcher icon: art variant + label copy key, per window.
+const WINDOW_ICON: Record<WindowId, { variant: IconVariant; label: CopyKey }> = {
+  about: { variant: "app", label: "icon-label-about" },
+  demo: { variant: "demo", label: "icon-label-demo" },
+  features: { variant: "doc", label: "icon-label-features" },
+  docs: { variant: "doc", label: "icon-label-docs" },
 };
 
 export function Desktop({
@@ -33,6 +42,9 @@ export function Desktop({
   onSwitchToWebsite: () => void;
 }) {
   const [ready, setReady] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState<WindowId | "hd" | null>(null);
+  const openWindow = useWindowManager((s) => s.openWindow);
+  const layoutKey = draggable ? "desktop" : "tablet";
 
   useEffect(() => {
     let cancelled = false;
@@ -51,17 +63,55 @@ export function Desktop({
 
   return (
     <div
+      // Clicking the empty desktop deselects any selected icon.
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setSelectedIcon(null);
+      }}
       className="fixed inset-0 overflow-hidden"
       style={{
         background: "var(--platinum-desktop-bg)",
-        // Subtle 2px dither over the desktop teal (kept faint — windows are the focus).
+        // Quiet classic Platinum desktop pattern: a fine 2px weave over the teal,
+        // kept faint (BRAND.md: windows are the focus, no ambient gradients).
         backgroundImage:
-          "repeating-conic-gradient(rgba(255,255,255,0.04) 0% 25%, transparent 0% 50%)",
-        backgroundSize: "2px 2px",
+          "repeating-conic-gradient(rgba(255,255,255,0.05) 0% 25%, transparent 0% 50%), repeating-conic-gradient(rgba(0,0,0,0.05) 0% 25%, transparent 0% 50%)",
+        backgroundSize: "2px 2px, 3px 3px",
       }}
     >
       <MenuBar />
       <ModeToggle label={copy["mode-toggle-to-website"]} onToggle={onSwitchToWebsite} />
+
+      {/* Desktop launcher icons — open/reopen their window on double-click. */}
+      {WINDOW_IDS.map((id) => {
+        const { variant, label } = WINDOW_ICON[id];
+        const pos = DESKTOP_ICON_LAYOUT[layoutKey][id];
+        return (
+          <DesktopIcon
+            key={id}
+            label={copy[label]}
+            variant={variant}
+            selected={selectedIcon === id}
+            onSelect={() => setSelectedIcon(id)}
+            onOpen={() => {
+              setSelectedIcon(id);
+              openWindow(id);
+            }}
+            style={{ left: pos.x, top: pos.y }}
+          />
+        );
+      })}
+
+      {/* Macintosh HD — pinned top-right, just under the menu bar. */}
+      <DesktopIcon
+        label={copy["icon-label-hd"]}
+        variant="drive"
+        selected={selectedIcon === "hd"}
+        onSelect={() => setSelectedIcon("hd")}
+        onOpen={() => {
+          setSelectedIcon("hd");
+          openWindow("about");
+        }}
+        style={{ right: 18, top: 76 }}
+      />
 
       {ready &&
         WINDOW_IDS.map((id) => {

@@ -373,6 +373,35 @@ body copy is lightly re-set for a scrolling page rather than windows.
 
 ---
 
+## PART 6 — Desktop icon labels (PROPOSAL — Session 7, pending copy-session sign-off)
+
+> Short labels (≤12 chars) for the desktop icons that open each window, plus the
+> Macintosh HD. New on-screen copy written during implementation; flagged for a
+> future copy session. "Macintosh HD" is OS set dressing (depicts the system),
+> not Familiar's voice.
+
+### icon-label-about
+**Where:** Desktop icon that opens the about/hero window.
+**Copy:** Familiar
+
+### icon-label-demo
+**Where:** Desktop icon that opens the demo window.
+**Copy:** Live Demo
+
+### icon-label-features
+**Where:** Desktop icon that opens the features window.
+**Copy:** Features
+
+### icon-label-docs
+**Where:** Desktop icon that opens the docs window.
+**Copy:** Read Me
+
+### icon-label-hd
+**Where:** The Macintosh HD desktop icon (top-right).
+**Copy:** Macintosh HD
+
+---
+
 ## Section-id index (for `lib/copy.ts` in Session 5)
 
 hero-headline · hero-subhead · hero-cta-primary · hero-cta-secondary ·
