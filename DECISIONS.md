@@ -4,6 +4,16 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — Window control glyphs are hover-only (intentional, not a bug)
+
+The close / collapse / zoom buttons in a window title bar render as empty Platinum squares and only show their ×/–/+ glyph on hover. This looks like a missing-icon bug but is deliberate: it matches MACOS9_REFERENCE.md window-controls (glyph "none" by default, glyph on hover) and real Mac OS 9 behavior. The user reviewed this and chose to keep the authentic hover-only treatment over always-visible glyphs.
+
+**Why:** Fidelity to Mac OS 9 is the point of the site; the empty-square-until-rollover detail is part of that. Do not "fix" it by always showing glyphs.
+
+**Alternatives considered:** always-visible glyphs (rejected — more usable but breaks authenticity); glyphs on the active window only (rejected — the user preferred full fidelity).
+
+---
+
 ## 2026-06-15 — DemoStep adaptations: `copyKey` bubbles and CSS `screen` ids
 
 ARCHITECTURE.md sketched `bubble-show` with a raw `text` field and `screen-change` with a `screenshot` path. The Session 6 implementation changed both: `bubble-show` carries a `copyKey` (a COPY.md section-id, resolved via `lib/copy.ts` at play time), and `screen-change` carries a `screen` id selecting a CSS-drawn mock screen in `DemoStage.tsx` rather than a raster image path.
