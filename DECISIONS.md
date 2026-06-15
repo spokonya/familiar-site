@@ -4,6 +4,36 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — Window store extends the contract with `isOpen` + `focusedId`; close hides, zoom is local
+
+`lib/useWindowManager.ts` implements every action in ARCHITECTURE.md window-manager-contract and adds two fields: `isOpen` (closed windows are hidden from the desktop but stay in the record, reopenable via `openWindow`) and `focusedId` (the focused window draws pinstripes + visible controls; all others render inactive). `closeWindow` sets `isOpen: false` rather than deleting the entry, so a window's saved position/size survives a close→reopen. The Zoom control is implemented locally inside `Window.tsx` (it stores the pre-zoom frame in a ref and calls `moveWindow`/`resizeWindow`) rather than as a store action.
+
+**Why:** The contract's seven actions don't cover open/closed visibility or focus tracking, both of which the chrome needs. Keeping closed windows in the record (vs. deleting) preserves their layout. Zoom is pure view state with no persistence need, so it doesn't belong in the store.
+
+**Alternatives considered:** deleting closed windows from the record (rejected — loses position/size); a `zoomWindow` store action (rejected — no persistence benefit, adds contract surface).
+
+---
+
+## 2026-06-15 — sessionStorage rehydration: skipHydration + manual rehydrate behind a `ready` gate
+
+The window store uses zustand `persist` with `sessionStorage` and `skipHydration: true`. `Desktop.tsx` awaits `useWindowManager.persist.rehydrate()` on mount, then calls `initLayout(breakpoint)` (a no-op once initialized), and only renders the windows after a `ready` flag flips. `initLayout` reads the live breakpoint from `window.innerWidth` rather than the React breakpoint state, which may not be resolved on the first effect tick.
+
+**Why:** The desktop is client-only and its window positions/clock are non-deterministic on the server, so auto-rehydration would cause React hydration mismatches. Gating render until after manual rehydrate avoids both the mismatch and a flash of the default layout overwriting a restored one. Reading `innerWidth` directly avoids initializing the tablet layout with stale desktop-default breakpoint state.
+
+**Alternatives considered:** default auto-rehydrate (rejected — hydration mismatch warnings); `localStorage` (rejected — ARCHITECTURE.md mandates a clean default layout on each new visit).
+
+---
+
+## 2026-06-15 — `useMode` reads `window.location` directly, not `useSearchParams`
+
+`lib/useMode.ts` resolves the desktop/website mode from `window.location.search` + `localStorage` inside a mount effect, and writes back with `history.replaceState` + `localStorage`. It does not use Next's `useSearchParams`.
+
+**Why:** `useSearchParams` forces the consuming page into a `<Suspense>` boundary in the App Router. Since the whole homepage is already client-gated behind a `mounted` flag, reading `window.location` directly is simpler and avoids the Suspense wrapper for no lost functionality (the `?mode=website` URL is still shareable).
+
+**Alternatives considered:** `useSearchParams` + Suspense (rejected — extra wrapper, no benefit at this scale); Next `router` for writes (rejected — `replaceState` avoids a navigation/scroll reset on toggle).
+
+---
+
 ## 2026-06-15 — Four windows, not five: plans live inside the features window
 
 The homepage desktop has exactly four windows (`about`, `demo`, `features`, `docs`), matching the canonical IDs Session 4 scaffolds. The Session 3 prompt floated a possible fifth "pricing/plans" window; instead, the Free/Pro plans became a section inside the `features` window and the primary CTA lives in the `about` window plus the menu bar.
