@@ -4,6 +4,26 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — Four windows, not five: plans live inside the features window
+
+The homepage desktop has exactly four windows (`about`, `demo`, `features`, `docs`), matching the canonical IDs Session 4 scaffolds. The Session 3 prompt floated a possible fifth "pricing/plans" window; instead, the Free/Pro plans became a section inside the `features` window and the primary CTA lives in the `about` window plus the menu bar.
+
+**Why:** A fifth window contradicts the fixed Session-4 window set and would crowd the desktop. Folding plans into `features` keeps the window count stable and the copy where a reader already is.
+
+**Alternatives considered:** a dedicated pricing window (rejected — diverges from the scaffolded window IDs), a separate `/pricing` route (rejected — out of homepage scope this session).
+
+---
+
+## 2026-06-15 — Hero CTA leads with "Watch it work," download is secondary
+
+The `about`-window hero leads with **Watch it work** (plays the demo) and offers **Download for Mac** as a secondary link. Website mode flips this — "Download for Mac" is the primary hero CTA there.
+
+**Why:** Familiar today requires real setup (an Anthropic API key, a Mac Studio backend) and there is no waitlist at launch (`CLAUDE.md`). A download-first desktop hero would over-promise one-click availability. Leading with the demo is always honest and puts the ghost cursor — the product's identity — front and center.
+
+**Alternatives considered:** download-first hero (rejected — over-promises availability), a waitlist CTA (rejected — no waitlist at launch).
+
+---
+
 ## 2026-06-06 — Separate repo from the product (not a monorepo)
 
 The website lives in `familiar-site/`, not inside the `familiar/` product repo.

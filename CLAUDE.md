@@ -50,7 +50,7 @@ skills/                — session skill files (accumulate over time)
 - [x] Session 0 — Repo init + reference docs
 - [x] Session 1 — Positioning → `POSITIONING.md`
 - [x] Session 2 — Brand foundation → `BRAND.md` + `MACOS9_REFERENCE.md` + Tailwind tokens
-- [ ] Session 3 — Homepage copy → `COPY.md` (first chunk)
+- [x] Session 3 — Homepage copy → `COPY.md`
 - [ ] Session 4+ — Implementation
 
 ## Notes
