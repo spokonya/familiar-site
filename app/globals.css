@@ -95,3 +95,15 @@ body {
   height: 0;
   display: none;
 }
+
+/* Demo click-ripple (components/demo/DemoStage.tsx). */
+@keyframes demo-ripple {
+  from {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.55;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}

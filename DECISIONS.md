@@ -4,6 +4,26 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — DemoStep adaptations: `copyKey` bubbles and CSS `screen` ids
+
+ARCHITECTURE.md sketched `bubble-show` with a raw `text` field and `screen-change` with a `screenshot` path. The Session 6 implementation changed both: `bubble-show` carries a `copyKey` (a COPY.md section-id, resolved via `lib/copy.ts` at play time), and `screen-change` carries a `screen` id selecting a CSS-drawn mock screen in `DemoStage.tsx` rather than a raster image path.
+
+**Why:** `copyKey` keeps all on-screen Familiar copy referenced by section-id (the standing copy rule) instead of embedding strings in the script data. CSS mock screens avoid shipping (and art-directing) realistic Safari/airline screenshots that don't exist, render crisply at any DPR, stay deterministic, and make the ghost's window-relative coordinates land on real DOM targets. The fictional mock-site labels (FlyExample, To, Depart, Pay…) are treated as set dressing depicting a third-party site, not Familiar copy.
+
+**Alternatives considered:** raw `text` in the script (rejected — bypasses COPY.md); real screenshot assets in `public/demo/` (rejected — none exist, heavier, DPR-fragile, and coordinates would be guesswork against a flat image).
+
+---
+
+## 2026-06-15 — Demo step bubble copy added to COPY.md as a PROPOSAL
+
+The five ghost-cursor speech-bubble lines (`demo-step-*`) were written during Session 6 (implementation), not a copy session — Session 3 explicitly left the demo step script out of scope. They were added to COPY.md under a clearly-labeled "PART 5 — PROPOSAL (pending copy-session sign-off)" block and mirrored into `lib/copy.ts`.
+
+**Why:** The demo can't run without bubble text, but the standing orders forbid implementation sessions from minting final copy. The standing-orders escape hatch permits proposed copy if it is explicitly marked as needing copy-session sign-off. Keeping the lines in COPY.md (not inline in the script) preserves the single source of truth and the reference-by-section-id rule. The lines reuse the already-approved Agent scenario (`mode-agent-example`).
+
+**Alternatives considered:** hard-coding bubble strings in `DemoScript.ts` (rejected — violates reference-by-section-id and hides copy from the future sign-off); blocking Session 6 until a copy session runs (rejected — no copy session is scheduled, and the scenario is already approved).
+
+---
+
 ## 2026-06-15 — Non-copy strings split into `lib/uiLabels.ts` and `lib/icons.ts`
 
 The success criterion for Session 5 was `grep -r '"[A-Z]' components/` returning nothing — all rendered copy must come from `lib/copy.ts`. But components legitimately need three kinds of non-copy strings that would trip that grep: the chrome font stack (`"Chicago", "Charcoal", …`), accessibility `aria-label` text (Close, Zoom, Scroll up…), and SVG `d=` path geometry (`"M21.6 …"`). These are not marketing copy and have no COPY.md section-id, so they can't go in `lib/copy.ts` (which must stay a 1:1 mirror of COPY.md). They were moved to: the `--font-chrome` CSS variable (`app/globals.css`), `lib/uiLabels.ts` (aria labels), and `lib/icons.ts` (path data).

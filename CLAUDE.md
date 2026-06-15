@@ -53,7 +53,7 @@ skills/                — session skill files (accumulate over time)
 - [x] Session 3 — Homepage copy → `COPY.md`
 - [x] Session 4 — Mac OS 9 desktop shell (window manager, chrome, mode toggle)
 - [x] Session 5 — Homepage content (lib/copy.ts, window content, website mode)
-- [ ] Session 6 — Fake Familiar demo
+- [x] Session 6 — Fake Familiar demo (scripted ghost-cursor autoplay)
 - [ ] Session 7 — Polish, performance, launch readiness
 
 ## Notes

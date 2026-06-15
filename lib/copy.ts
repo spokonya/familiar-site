@@ -85,6 +85,13 @@ export const copy = {
   "mode-toggle-to-website": `Switch to website mode`,
   "mode-toggle-to-desktop": `Back to the desktop`,
   "mode-banner-mobile": `The desktop works best on a bigger screen. Here's the short version.`,
+
+  // ── demo step script (PROPOSAL — COPY.md PART 5, pending copy-session sign-off) ──
+  "demo-step-command": `Book me a flight to Portland, leaving Friday.`,
+  "demo-step-open": `Opening the airline site.`,
+  "demo-step-fill": `Portland, leaving Friday — filling it in.`,
+  "demo-step-search": `Searching for flights.`,
+  "demo-step-approve": `I'll stop here so you can approve the payment.`,
 } as const;
 
 export type CopyKey = keyof typeof copy;
