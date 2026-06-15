@@ -4,6 +4,8 @@
 // here as constants for Session 4; Session 5 migrates them into lib/copy.ts and
 // these reference copy["<section-id>"] instead.
 
+import { copy } from "./copy";
+
 export type WindowId = "about" | "demo" | "features" | "docs";
 
 export type WindowState = {
@@ -20,12 +22,12 @@ export type WindowState = {
 
 export const WINDOW_IDS: WindowId[] = ["about", "demo", "features", "docs"];
 
-// Title bar text. Comment marks the COPY.md section-id each one renders.
+// Title bar text — sourced from lib/copy.ts (COPY.md section-ids).
 export const WINDOW_TITLES: Record<WindowId, string> = {
-  about: "Familiar", //              COPY.md chrome-app-name
-  demo: "Familiar — Live", //        COPY.md demo-window-title
-  features: "What Familiar does", // COPY.md features-window-title
-  docs: "Documentation", //          COPY.md docs-window-title
+  about: copy["chrome-app-name"],
+  demo: copy["demo-window-title"],
+  features: copy["features-window-title"],
+  docs: copy["docs-window-title"],
 };
 
 type Frame = { position: { x: number; y: number }; size: { width: number; height: number } };

@@ -4,6 +4,26 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — Non-copy strings split into `lib/uiLabels.ts` and `lib/icons.ts`
+
+The success criterion for Session 5 was `grep -r '"[A-Z]' components/` returning nothing — all rendered copy must come from `lib/copy.ts`. But components legitimately need three kinds of non-copy strings that would trip that grep: the chrome font stack (`"Chicago", "Charcoal", …`), accessibility `aria-label` text (Close, Zoom, Scroll up…), and SVG `d=` path geometry (`"M21.6 …"`). These are not marketing copy and have no COPY.md section-id, so they can't go in `lib/copy.ts` (which must stay a 1:1 mirror of COPY.md). They were moved to: the `--font-chrome` CSS variable (`app/globals.css`), `lib/uiLabels.ts` (aria labels), and `lib/icons.ts` (path data).
+
+**Why:** Keeps `lib/copy.ts` an exact mirror of COPY.md while leaving `components/` free of any hard-coded string, so the grep is genuinely clean rather than clean-by-exception.
+
+**Alternatives considered:** adding aria/font/path keys to `lib/copy.ts` (rejected — pollutes the COPY.md mirror with non-copy); leaving them inline and documenting the grep exceptions (rejected — weakens the rule and invites drift).
+
+---
+
+## 2026-06-15 — Dropped the "Edit" menu-bar item (no COPY.md id)
+
+Session 4 added File / Edit / Help to the menu bar. Session 5 removed "Edit": COPY.md defines `menu-file-label` and `menu-help-label` but no Edit item, and the standing orders forbid any on-page copy without a COPY.md section-id. The menu bar now shows Apple / Familiar / File / Help, all sourced from `lib/copy.ts`.
+
+**Why:** Copy discipline — every visible string must trace to a COPY.md id. The menus are decorative at launch anyway, so the exact set is a copy decision, not a functional one.
+
+**Alternatives considered:** adding a `menu-edit-label` to COPY.md mid-implementation (rejected — copy additions belong to a copy session, not an implementation session); keeping a hard-coded "Edit" (rejected — violates the copy rule and the grep).
+
+---
+
 ## 2026-06-15 — Window store extends the contract with `isOpen` + `focusedId`; close hides, zoom is local
 
 `lib/useWindowManager.ts` implements every action in ARCHITECTURE.md window-manager-contract and adds two fields: `isOpen` (closed windows are hidden from the desktop but stay in the record, reopenable via `openWindow`) and `focusedId` (the focused window draws pinstripes + visible controls; all others render inactive). `closeWindow` sets `isOpen: false` rather than deleting the entry, so a window's saved position/size survives a close→reopen. The Zoom control is implemented locally inside `Window.tsx` (it stores the pre-zoom frame in a ref and calls `moveWindow`/`resizeWindow`) rather than as a store action.

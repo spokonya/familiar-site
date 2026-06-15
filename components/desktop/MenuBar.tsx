@@ -5,9 +5,9 @@
 // (per the reference doc); only hover states are wired.
 
 import { useEffect, useState } from "react";
-
-const CHROME_FONT =
-  '"Chicago", "Charcoal", ui-sans-serif, -apple-system, system-ui, sans-serif';
+import { copy } from "@/lib/copy";
+import { APPLE_LOGO_PATH } from "@/lib/icons";
+import { ariaLabels, CHROME_FONT_VAR } from "@/lib/uiLabels";
 
 export function MenuBar() {
   return (
@@ -18,15 +18,14 @@ export function MenuBar() {
         zIndex: 10000,
         background: "#DDDDDD",
         borderBottom: "1px solid var(--platinum-border-outer)",
-        fontFamily: CHROME_FONT,
+        fontFamily: CHROME_FONT_VAR,
         fontSize: 12,
       }}
     >
       <AppleMenu />
-      <MenuItem label="Familiar" bold /> {/* COPY.md chrome-app-name */}
-      <MenuItem label="File" /> {/* COPY.md menu-file-label */}
-      <MenuItem label="Edit" />
-      <MenuItem label="Help" /> {/* COPY.md menu-help-label */}
+      <MenuItem label={copy["chrome-app-name"]} bold />
+      <MenuItem label={copy["menu-file-label"]} />
+      <MenuItem label={copy["menu-help-label"]} />
       <div className="flex-1" />
       <Clock />
     </div>
@@ -59,7 +58,7 @@ function AppleMenu() {
   return (
     <button
       type="button"
-      aria-label="Apple menu"
+      aria-label={ariaLabels.appleMenu}
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}
       className="flex h-full items-center"
@@ -82,7 +81,7 @@ function RainbowApple() {
     <svg width="13" height="15" viewBox="0 0 26 30" aria-hidden role="img">
       <defs>
         <clipPath id={id}>
-          <path d="M21.6 16.1c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.6-2-.2-3.9 1.2-4.9 1.2s-2.6-1.2-4.2-1.1c-2.2 0-4.2 1.3-5.3 3.2-2.3 4-.6 9.9 1.6 13.1 1.1 1.6 2.4 3.3 4 3.3 1.6-.1 2.2-1 4.1-1s2.5 1 4.2 1c1.7 0 2.8-1.6 3.9-3.2.8-1.2 1.4-2.4 1.8-3.7-3.6-1.4-3.1-5.4-3.1-5.5zM17.8 5.4c.9-1 1.5-2.5 1.3-3.9-1.3.1-2.8.9-3.7 1.9-.8.9-1.5 2.4-1.3 3.8 1.4.1 2.9-.7 3.7-1.8z" />
+          <path d={APPLE_LOGO_PATH} />
         </clipPath>
       </defs>
       <g clipPath={`url(#${id})`}>
