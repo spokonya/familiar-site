@@ -400,6 +400,42 @@ body copy is lightly re-set for a scrolling page rather than windows.
 **Where:** The Macintosh HD desktop icon (top-right).
 **Copy:** Macintosh HD
 
+### menu-familiar-about
+**Where:** Familiar (application) menu — opens the about window.
+**Copy:** About Familiar
+
+### menu-file-open
+**Where:** File menu — submenu header listing the windows to open.
+**Copy:** Open
+
+### menu-file-close
+**Where:** File menu — closes the focused window.
+**Copy:** Close Window
+
+### menu-help-item
+**Where:** Help menu — opens the docs window.
+**Copy:** Familiar Help
+
+### about-dialog-version
+**Where:** "About This Desktop" dialog — version line.
+**Copy:** Familiar 1.0
+
+### about-dialog-line
+**Where:** "About This Desktop" dialog — tagline.
+**Copy:** A Mac that remembers — and acts.
+
+### about-dialog-memory
+**Where:** "About This Desktop" dialog — playful "Built-in Memory" readout.
+**Copy:** Built-in Memory: your whole screen, kept on your Mac.
+
+### status-familiar-label
+**Where:** Menu-bar status item (right side) — short label beside the ghost cursor glyph.
+**Copy:** Watching
+
+### status-familiar-note
+**Where:** Familiar status item — the dialog it opens, tying the desktop to the real product.
+**Copy:** On your real Mac, Familiar watches your screen and steps in when you ask. This desktop is a preview of that.
+
 ---
 
 ## Section-id index (for `lib/copy.ts` in Session 5)
