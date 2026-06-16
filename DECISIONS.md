@@ -4,6 +4,16 @@ ADR-lite format. One paragraph per decision. Record *what* was decided, *why*, a
 
 ---
 
+## 2026-06-15 — Menu/dialog as reusable primitives; menus drive the window store directly
+
+Session 8 added two primitives — `components/desktop/Menu.tsx` (the Platinum dropdown, recursive for submenus, with keyboard nav) and `components/desktop/DialogBox.tsx` (the modal with the pulsing default button) — and `MenuBar` builds its menu model from `lib/copy.ts` labels plus direct calls into the Zustand window store (`openWindow`/`closeWindow`/`focusedId`) and the mode toggle. Menu state (which top menu is open, which dialog is showing) is local React state in `MenuBar`, not the global store. Click-away uses a transparent fixed backdrop; only one menu is open at a time.
+
+**Why:** Dropdowns and dialogs recur (File's submenu, Apple's About box, the status item's dialog, and future dialogs in Session 9/10), so they're primitives rather than bespoke markup. Menu/dialog open-state is ephemeral UI with no need to persist or be read elsewhere, so it stays local — the window store keeps its tight ARCHITECTURE.md contract instead of accreting UI chrome state.
+
+**Alternatives considered:** a headless menu library (rejected — the Platinum chrome is bespoke and the interaction is simple enough to own); putting menu/dialog open-state in the Zustand store (rejected — pollutes the contract with transient view state); document-level click listeners for click-away (rejected — a backdrop element is simpler and scopes cleanly).
+
+---
+
 ## 2026-06-15 — Desktop icons are the window reopen mechanism; HD opens About
 
 Each window has a desktop launcher icon; double-clicking it calls `openWindow(id)`. This is now the canonical way to reopen a window after it has been closed — previously there was no affordance and a closed window was gone for the session. The Macintosh HD icon double-clicks to `openWindow("about")` rather than being inert.
