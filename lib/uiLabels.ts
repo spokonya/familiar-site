@@ -10,6 +10,12 @@ export const ariaLabels = {
   scrollDown: "Scroll down",
   appleMenu: "Apple menu",
   trashIcon: "Trash",
+  familiarStatus: "Familiar status",
+} as const;
+
+// Generic dialog button text — standard UI chrome, not marketing copy.
+export const buttonLabels = {
+  ok: "OK",
 } as const;
 
 // Chrome font stack lives in CSS as --font-chrome (app/globals.css).

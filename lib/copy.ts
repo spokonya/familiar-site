@@ -99,6 +99,17 @@ export const copy = {
   "icon-label-features": `Features`,
   "icon-label-docs": `Read Me`,
   "icon-label-hd": `Macintosh HD`,
+
+  // ── menu bar, About dialog & status item (PROPOSAL — COPY.md PART 6) ──
+  "menu-familiar-about": `About Familiar`,
+  "menu-file-open": `Open`,
+  "menu-file-close": `Close Window`,
+  "menu-help-item": `Familiar Help`,
+  "about-dialog-version": `Familiar 1.0`,
+  "about-dialog-line": `A Mac that remembers — and acts.`,
+  "about-dialog-memory": `Built-in Memory: your whole screen, kept on your Mac.`,
+  "status-familiar-label": `Watching`,
+  "status-familiar-note": `On your real Mac, Familiar watches your screen and steps in when you ask. This desktop is a preview of that.`,
 } as const;
 
 export type CopyKey = keyof typeof copy;

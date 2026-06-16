@@ -6,6 +6,7 @@
 // transform: translate() only (no top/left). The bezier flight is computed by
 // DemoPlayer, which feeds this component a new point each frame.
 
+import { GHOST_CURSOR_PATH } from "@/lib/icons";
 import type { Point } from "./DemoScript";
 
 export function GhostCursor({ at, visible }: { at: Point; visible: boolean }) {
@@ -31,7 +32,7 @@ export function GhostCursor({ at, visible }: { at: Point; visible: boolean }) {
         style={{ filter: "drop-shadow(0 0 8px rgba(55,138,221,0.6))" }}
       >
         <path
-          d="M1 1 L1 19 L6 14.5 L9.5 22.5 L12.5 21 L9 13.5 L15.5 13 Z"
+          d={GHOST_CURSOR_PATH}
           fill="#378ADD"
           stroke="#FFFFFF"
           strokeWidth="1"

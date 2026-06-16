@@ -77,7 +77,7 @@ export function Desktop({
         backgroundSize: "2px 2px, 3px 3px",
       }}
     >
-      <MenuBar />
+      <MenuBar onSwitchToWebsite={onSwitchToWebsite} />
       <ModeToggle label={copy["mode-toggle-to-website"]} onToggle={onSwitchToWebsite} />
 
       {/* Desktop launcher icons — open/reopen their window on double-click. */}
